@@ -1,9 +1,13 @@
-import "./App.css";
+import Footer from "./layouts/Footer";
+import Header from "./layouts/Header";
+import Sample from "./layouts/sample";
 
 function App() {
   return (
     <div className="App">
-      <div>hrthe</div>
+      <Header />
+      <Sample />
+      <Footer />
     </div>
   );
 }
