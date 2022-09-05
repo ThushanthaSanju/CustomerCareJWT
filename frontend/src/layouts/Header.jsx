@@ -10,7 +10,7 @@ const Header = () => {
     const [value, setValue] = useState();
 
     const theme = useTheme();
-    const isMatch = useMediaQuery(theme.breakpoints.down('md'))
+    const isMatch = useMediaQuery(theme.breakpoints.down('lg'))
     return (
         <div>
 
@@ -19,7 +19,7 @@ const Header = () => {
                     <ScubaDivingIcon fontSize="large" />
                     {isMatch ? (<>
                         <Typography >{'\u00A0'}{'\u00A0'} Diving App{'\u00A0'}{'\u00A0'}</Typography> <DrawerComp /></>) : (
-                        <>  <Tabs sx={{ marginRight: 'auto' }} textColor="inherit" value={value} onChange={(e, value) => setValue(value)} indicatorColor='secondary'>
+                        <> <Typography >{'\u00A0'}{'\u00A0'} Diving App{'\u00A0'}{'\u00A0'}</Typography>  <Tabs sx={{ marginRight: 'auto' }} textColor="inherit" value={value} onChange={(e, value) => setValue(value)} indicatorColor='secondary'>
                             {
                                 PAGES.map((page, index) => (
                                     <Tab key={index} label={page} />
