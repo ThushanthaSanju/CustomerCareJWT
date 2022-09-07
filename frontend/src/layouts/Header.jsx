@@ -3,10 +3,12 @@ import { AppBar, Button, Tab, Tabs, Toolbar, Typography, useMediaQuery, useTheme
 import ScubaDivingIcon from '@mui/icons-material/ScubaDiving';
 import { useState } from 'react';
 import DrawerComp from './DrawerComp';
+import { useNavigate } from 'react-router-dom';
 
 const PAGES = ["Live Boards", "Diving Resorts", "Diving Packages", "Snorkeling"]
 
 const Header = () => {
+    const navigate = useNavigate();
     const [value, setValue] = useState();
 
     const theme = useTheme();
@@ -27,8 +29,8 @@ const Header = () => {
                             }
 
                         </Tabs>
-                            <Button variant='contained' sx={{ marginLeft: 'auto' }}>Login</Button>
-                            <Button variant='contained' sx={{ marginLeft: '10px ' }} >Register</Button>
+                            <Button variant='contained' sx={{ marginLeft: 'auto' }} onClick={() => navigate('/signin')}>Login</Button>
+                            <Button variant='contained' sx={{ marginLeft: '10px ' }} onClick={() => navigate('/signup')}>Register</Button>
                         </>
                     )}
 
