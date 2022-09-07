@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import subscribersRouter from "./routes/subscribers.js";
+import packagesRouter from "./routes/package.js";
 
 const PORT = process.env.PORT || "5000";
 dotenv.config();
@@ -15,6 +16,7 @@ mongoose.connect(process.env.DATABASE_URL, {
   useUnifiedTopology: true,
 });
 app.use("/subscribers", subscribersRouter);
+app.use("/packages", packagesRouter);
 
 app.listen(PORT, () =>
   console.log(`Server is up and running on https://localhost:${PORT}`)
