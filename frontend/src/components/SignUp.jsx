@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import HowToRegIcon from '@mui/icons-material/HowToReg'; import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useState } from 'react';
 
 // function Copyright(props) {
