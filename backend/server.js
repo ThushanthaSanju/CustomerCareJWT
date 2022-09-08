@@ -6,7 +6,7 @@ import subscribersRouter from "./routes/subscribers.js";
 import packagesRouter from "./routes/package.js";
 import productRouter from "./routes/productsRoutes.js";
 import userRouter from "./routes/userRoutes.js";
-import liveBoardsRouter from './routes/liveboardsRoutes.js';
+import liveBoardsRouter from "./routes/liveboardsRoutes.js";
 import LbBooking from "./routes/LbBookingsRoutes.js";
 
 const PORT = process.env.PORT || "5000";
@@ -25,9 +25,8 @@ app.use("/subscribers", subscribersRouter);
 app.use("/user", userRouter);
 app.use("/packages", packagesRouter);
 app.use("/api/products/", productRouter);
-app.use('/api/products/', productRouter);
-app.use('/liveboard', liveBoardsRouter);
-app.use('/lbBooings', LbBooking);
+app.use("/liveboard", liveBoardsRouter);
+app.use("/lbBooings", LbBooking);
 
 app.listen(PORT, () =>
   console.log(`Server is up and running on https://localhost:${PORT}`)

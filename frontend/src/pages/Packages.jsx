@@ -1,47 +1,52 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
-
-const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'firstName', headerName: 'First name', width: 130 },
-    { field: 'lastName', headerName: 'Last name', width: 130 },
-    {
-        field: 'age',
-        headerName: 'Age',
-        width: 90,
-    },
-    {
-        field: 'Delete',
-        renderCell: (cellValues) => {
-            return (<Button variant='outlined' >Delete</Button>)
-        }
-    },
-    {
-        field: 'Update',
-        renderCell: (cellValues) => {
-            return (<Button variant='outlined' >Update</Button>)
-        }
-    },
+import axios from 'axios';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
-];
-
-const rows = [
-    {
-        id: 1, lastName: 'Snow', firstName: 'Jon', age: 40
-    },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-
-
-];
-
+//get all book details
 
 const Packages = () => {
+
+    const columns = [
+        { field: '_id', headerName: 'ID', width: 130 },
+        { field: 'name', headerName: 'Name', width: 130 },
+        { field: 'description', headerName: 'Description', width: 130 },
+        { field: 'price', headerName: 'Price', width: 130 },
+        {
+            field: 'Delete',
+            renderCell: (cellValues) => {
+                return (<Button variant='outlined' ><DeleteIcon /></Button>)
+            }, width: 80
+        },
+        {
+            field: 'Update',
+            renderCell: (cellValues) => {
+                return (<Button variant='outlined' ><EditIcon /></Button>)
+            }, width: 80
+        },
+    ]
+    const [tabledata, setTableData] = useState([]);
+
+
+    useEffect(() => {
+        const getFileList = async () => {
+            try {
+                const { data } = await axios.get(`http://localhost:5000/packages`, {
+                });
+                setTableData(data);
+                console.log(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getFileList();
+    }, []);
+
     const navigate = useNavigate();
 
     return (
@@ -62,10 +67,11 @@ const Packages = () => {
 
                     <div style={{ height: 400, width: '100%' }}>
                         <DataGrid
-                            rows={rows}
+                            rows={tabledata}
                             columns={columns}
                             pageSize={5}
                             rowsPerPageOptions={[5]}
+                            getRowId={(row) => row._id}
 
                         />
                     </div>
