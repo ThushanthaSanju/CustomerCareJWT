@@ -13,7 +13,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useState } from 'react';
-
+import axios from "axios";
 // function Copyright(props) {
 //     return (
 //         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -33,19 +33,68 @@ import { useState } from 'react';
 const theme = createTheme();
 
 export default function SignUp() {
-    const [age, setAge] = useState('');
+
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [status, setStatus] = useState('');
 
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setStatus(event.target.value);
+    };
+    const handlefirstName = (e) => {
+        setFirstName(e.target.value);
+    };
+    const handlelastName = (e) => {
+        setLastName(e.target.value);
+    };
+    const handleemail = (e) => {
+        setEmail(e.target.value);
+    };
+    const handlepasswors = (e) => {
+        setPassword(e.target.value);
     };
 
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     const data = new FormData(event.currentTarget);
+    //     console.log({
+    //         email: data.get('email'),
+    //         password: data.get('password'),
+    //     });
+    // };
     const handleSubmit = (event) => {
+
+
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        const user = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
+            status: status,
+
+        };
+        axios
+            .post(`http://localhost:5000/user`, user, {
+
+            })
+            .then((res) => {
+                console.log(res.data);
+
+                if (res.status === 201) {
+
+                    console.log("user created");
+                } else {
+                    console.log("fail");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
     };
 
     return (
@@ -78,6 +127,7 @@ export default function SignUp() {
                                     fullWidth
                                     id="firstName"
                                     label="First Name"
+                                    onChange={(e) => handlefirstName(e)}
                                     autoFocus
                                 />
                             </Grid>
@@ -89,6 +139,7 @@ export default function SignUp() {
                                     label="Last Name"
                                     name="lastName"
                                     autoComplete="family-name"
+                                    onChange={(e) => handlelastName(e)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -99,6 +150,7 @@ export default function SignUp() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    onChange={(e) => handleemail(e)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -110,16 +162,17 @@ export default function SignUp() {
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    onChange={(e) => handlepasswors(e)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <FormControl sx={{ minWidth: "100%" }}>
                                     <InputLabel id="demo-simple-select-helper-label">Status</InputLabel>
                                     <Select
-                                        labelId="demo-simple-select-helper-label"
-                                        id="demo-simple-select-helper"
-                                        value={age}
-                                        label="Age"
+                                        name="status"
+                                        id="status"
+                                        value={status}
+                                        label="status"
                                         onChange={handleChange}
                                     >
                                         <MenuItem value="">
