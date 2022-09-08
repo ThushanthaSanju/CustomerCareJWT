@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-
+import axios from "axios";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -15,19 +15,58 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 function AddPackage() {
 
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState("");
+    const [successMsg, setSuccessMsg] = useState("");
 
-
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     const data = new FormData(event.currentTarget);
+    //     console.log({
+    //         email: data.get('email'),
+    //         password: data.get('password'),
+    //     });
+    // };
+    const handleDes = (e) => {
+        setDescription(e.target.value);
     };
+    const handlePrice = (e) => {
+        setPrice(e.target.value);
+    };
+    const handleName = (e) => {
+        setName(e.target.value);
+    };
+    const handleSubmit = (event) => {
 
 
+        event.preventDefault();
+
+        const packagee = {
+            name: name,
+            description: description,
+            price: price,
+
+        };
+        axios
+            .post(`http://localhost:5000/packages`, packagee, {
+
+            })
+            .then((res) => {
+                console.log(res.data);
+
+                if (res.status === 201) {
+
+                    console.log("kgakganlldk");
+                } else {
+                    setSuccessMsg("unuccessfully inserted");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -54,9 +93,10 @@ function AddPackage() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="Name"
+                                    id="name"
                                     label="Name"
-                                    name="Name"
+                                    name="name"
+                                    onChange={(e) => handleName(e)}
 
                                 />
                             </Grid>
@@ -68,7 +108,8 @@ function AddPackage() {
                                     rows={4}
                                     id="description"
                                     label="Description"
-                                    name="Description"
+                                    name="description"
+                                    onChange={(e) => handleDes(e)}
 
                                 />
                             </Grid>
@@ -78,8 +119,9 @@ function AddPackage() {
                                     fullWidth
                                     id="price"
                                     label="Price"
-                                    name="Price"
+                                    name="price"
                                     type="number"
+                                    onChange={(e) => handlePrice(e)}
 
                                 />
                             </Grid>
