@@ -8,6 +8,7 @@ import productRouter from "./routes/productsRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import liveBoardsRouter from "./routes/liveboardsRoutes.js";
 import LbBooking from "./routes/LbBookingsRoutes.js";
+import resortsRoutes from "./routes/resortsRoute.js";
 
 const PORT = process.env.PORT || "5000";
 dotenv.config();
@@ -27,6 +28,7 @@ app.use("/packages", packagesRouter);
 app.use("/api/products/", productRouter);
 app.use("/liveboard", liveBoardsRouter);
 app.use("/lbBooings", LbBooking);
+app.use('/api/resorts', resortsRoutes);
 
 app.listen(PORT, () =>
   console.log(`Server is up and running on https://localhost:${PORT}`)

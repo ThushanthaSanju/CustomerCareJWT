@@ -27,7 +27,7 @@ const Header = () => {
 
 
                         <Tab label="Live Boards" onClick={() => navigate('/')} />
-                        <Tab label="Diving Resorts" onClick={() => navigate('/')} />
+                        <Tab label="Diving Resorts" onClick={() => navigate('/resorts')} />
                         <Tab label="Diving Packages" onClick={() => navigate('/packages')} />
                         <Tab label="Snorkeling" onClick={() => navigate('/')} />
 
