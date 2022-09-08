@@ -4,7 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import subscribersRouter from "./routes/subscribers.js";
 import packagesRouter from "./routes/package.js";
-import productRouter from './routes/productsRoutes.js';
+import productRouter from "./routes/productsRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
 const PORT = process.env.PORT || "5000";
 dotenv.config();
@@ -19,8 +20,9 @@ mongoose.connect(process.env.DATABASE_URL, {
 
 //routes
 app.use("/subscribers", subscribersRouter);
+app.use("/user", userRouter);
 app.use("/packages", packagesRouter);
-app.use('/api/products/', productRouter);
+app.use("/api/products/", productRouter);
 
 app.listen(PORT, () =>
   console.log(`Server is up and running on https://localhost:${PORT}`)
