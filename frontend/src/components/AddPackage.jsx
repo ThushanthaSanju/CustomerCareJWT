@@ -18,7 +18,7 @@ function AddPackage() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [successMsg, setSuccessMsg] = useState("");
+
 
     // const handleSubmit = (event) => {
     //     event.preventDefault();
@@ -59,7 +59,7 @@ function AddPackage() {
 
                     console.log("kgakganlldk");
                 } else {
-                    setSuccessMsg("unuccessfully inserted");
+                    console.log("fdsaasgasghahahahbd");
                 }
             })
             .catch((err) => {
