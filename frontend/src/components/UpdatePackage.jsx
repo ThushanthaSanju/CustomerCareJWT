@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-
+import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,26 +8,30 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 
 const theme = createTheme();
-function AddPackage() {
+
+function UpdatePackage() {
+
+
+    const [data, setData] = useState("");
+
+    const { id } = useParams()
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/packages/${id}`).then((response) => {
+
+            setData(response.data)
+        })
+    }, []);
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
 
-
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     const data = new FormData(event.currentTarget);
-    //     console.log({
-    //         email: data.get('email'),
-    //         password: data.get('password'),
-    //     });
-    // };
     const handleDes = (e) => {
         setDescription(e.target.value);
     };
@@ -39,26 +42,20 @@ function AddPackage() {
         setName(e.target.value);
     };
     const navigate = useNavigate();
+
     const handleSubmit = (event) => {
-
-
         event.preventDefault();
-
         const packagee = {
             name: name,
             description: description,
             price: price,
-
         };
         axios
-            .post(`http://localhost:5000/packages`, packagee, {
-
+            .patch(`http://localhost:5000/packages/${id}`, packagee, {
             })
             .then((res) => {
                 console.log(res.data);
-
                 if (res.status === 201) {
-
                     console.log("kgakganlldk");
                     navigate('/packages')
                 } else {
@@ -87,7 +84,7 @@ function AddPackage() {
                 >
 
                     <Typography component="h1" variant="h5">
-                        Add Package
+                        Update Package
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
@@ -96,6 +93,7 @@ function AddPackage() {
                                 <TextField
                                     required
                                     fullWidth
+                                    defaultValue={data.name}
                                     id="name"
                                     label="Name"
                                     name="name"
@@ -139,7 +137,7 @@ function AddPackage() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Add Package
+                            Update Package
                         </Button>
 
                     </Box>
@@ -150,4 +148,5 @@ function AddPackage() {
     )
 }
 
-export default AddPackage
+export default UpdatePackage
+
