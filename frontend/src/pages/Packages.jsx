@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, IconButton } from '@mui/material';
 import { Box } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddPackage from "../components/AddPackage";
 
 
-//get all book details
 
 const Packages = () => {
-
+    const navigate = useNavigate();
     const columns = [
         { field: '_id', headerName: 'ID', width: 130 },
         { field: 'name', headerName: 'Name', width: 130 },
@@ -20,16 +20,39 @@ const Packages = () => {
         {
             field: 'Delete',
             renderCell: (cellValues) => {
-                return (<Button variant='outlined' ><DeleteIcon /></Button>)
+                return (
+                    <IconButton onClick={() => handleRemoveItem(cellValues)}><DeleteIcon />
+                    </IconButton>)
+
+                // <IconButton onClick={() => axios.delete(`http://localhost:5000/packages/${cellValues.row._id}`).
+                //     then(alert("Deleted"))
+                //     .them(window.location.reload())}><DeleteIcon />
+                // </IconButton>)
             }, width: 80
         },
         {
             field: 'Update',
             renderCell: (cellValues) => {
-                return (<Button variant='outlined' ><EditIcon /></Button>)
+                return (
+                    <IconButton onClick={() => { navigate(`updatepackage/${cellValues.row._id}`) }}>
+                        <EditIcon />
+                    </IconButton>
+                    // <IconButton onClick={() => console.log(cellValues.row)}>
+                    //     <EditIcon />
+                    //     </IconButton>
+                )
             }, width: 80
         },
     ]
+
+
+    const handleRemoveItem = (cellValues) => {
+        axios.delete(`http://localhost:5000/packages/${cellValues.row._id}`).
+            then(alert("Deleted"))
+            .then(window.location.reload())
+    };
+
+
     const [tabledata, setTableData] = useState([]);
 
 
@@ -47,7 +70,8 @@ const Packages = () => {
         getFileList();
     }, []);
 
-    const navigate = useNavigate();
+
+
 
     return (
         <>
@@ -72,6 +96,9 @@ const Packages = () => {
                             pageSize={5}
                             rowsPerPageOptions={[5]}
                             getRowId={(row) => row._id}
+
+
+
 
                         />
                     </div>

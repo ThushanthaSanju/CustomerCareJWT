@@ -39,7 +39,7 @@ export const updatePackage = async (req, res) => {
   }
   try {
     const updatedPackage = await res.package.save();
-    res.json(updatedPackage);
+    res.status(201).json(updatedPackage);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
