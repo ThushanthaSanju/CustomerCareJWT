@@ -1,118 +1,106 @@
-import React, { useEffect, useState } from 'react'
-import { DataGrid } from '@mui/x-data-grid';
-import { Button, Grid, IconButton } from '@mui/material';
-import { Box } from '@mui/system';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddPackage from "../components/AddPackage";
+import React, { useState, useEffect } from 'react';
+//import * as FaIcons from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import MaterialTable from 'material-table';
+import { useNavigate } from "react-router-dom";
 
-
+import 'react-toastify/dist/ReactToastify.css';
+import PackageController from "../controllers/package_contoller";
 
 const Packages = () => {
+
+    const [data, setData] = useState([]);
     const navigate = useNavigate();
-    const columns = [
-        { field: '_id', headerName: 'ID', width: 130 },
-        { field: 'name', headerName: 'Name', width: 130 },
-        { field: 'description', headerName: 'Description', width: 130 },
-        { field: 'price', headerName: 'Price', width: 130 },
-        {
-            field: 'Delete',
-            renderCell: (cellValues) => {
-                return (
-                    <IconButton onClick={() => handleRemoveItem(cellValues)}><DeleteIcon />
-                    </IconButton>)
-
-                // <IconButton onClick={() => axios.delete(`http://localhost:5000/packages/${cellValues.row._id}`).
-                //     then(alert("Deleted"))
-                //     .them(window.location.reload())}><DeleteIcon />
-                // </IconButton>)
-            }, width: 80
-        },
-        {
-            field: 'Update',
-            renderCell: (cellValues) => {
-                return (
-                    <IconButton onClick={() => { navigate(`updatepackage/${cellValues.row._id}`) }}>
-                        <EditIcon />
-                    </IconButton>
-                    // <IconButton onClick={() => console.log(cellValues.row)}>
-                    //     <EditIcon />
-                    //     </IconButton>
-                )
-            }, width: 80
-        },
-    ]
-
-
-    const handleRemoveItem = (cellValues) => {
-        axios.delete(`http://localhost:5000/packages/${cellValues.row._id}`).
-            then(alert("Deleted"))
-            .then(window.location.reload())
-    };
-
-
-    const [tabledata, setTableData] = useState([]);
-
 
     useEffect(() => {
-        const getFileList = async () => {
-            try {
-                const { data } = await axios.get(`http://localhost:5000/packages`, {
-                });
-                setTableData(data);
-                console.log(data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getFileList();
+        loadData()
     }, []);
 
 
+    const loadData = () => {
+        PackageController.PackageGet().then((res) => {
+            console.log(res);
+            setData(res.data)
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
+    const onDelete = async (e, data) => {
+        e.preventDefault();
+        console.log(data);
+
+        try {
+            PackageController.PackageDelete(data._id).then((res) => {
+                console.log(res);
+                if (res.success) {
+                    toast.success("Successfully Deleted")
+                } else {
+                    toast.error("Failed to Delete")
+                }
+                loadData()
+            }).catch((err) => {
+                console.log(err);
+            })
+        } catch (error) {
+
+        }
+    }
 
 
     return (
-        <>
-            <Grid display="flex" justifyContent="flex-end" sx={{ m: 6 }}>
-                <Button variant='outlined' onClick={() => navigate('/addpackage')}>Add Package</Button>
-            </Grid>
+        <div className=''>
+            <div className='mx-3 my-3 '>
+                <div className=''>
+                    <h3><center>Package List</center></h3>
+                </div>
+            </div>
 
+            <div className=''>
+                <div className='row mx-3 my-3'>
+                    <div className='col-8 mx-auto'>
+                        <div className='card mx-3 my-3 shadow-sm rounded'>
+                            <MaterialTable
+                                title="Package Details"
+                                columns={[
+                                    { title: 'Name', field: 'name' },
+                                    { title: 'Description', field: 'description' },
+                                    { title: 'Price', field: 'price' },
 
-            <Box sx={{ width: 1200, margin: 'auto', marginBottom: 10 }}>
-                <Grid container
-                    spacing={0}
-                    direction="column"
+                                ]}
+                                data={data}
+                                actions={[
+                                    {
+                                        icon: 'delete',
+                                        tooltip: 'Delete Package',
+                                        onClick: (event, rowData) => { onDelete(event, rowData) }
+                                    },
+                                    {
+                                        icon: 'update',
+                                        tooltip: 'Update Package',
+                                        onClick: (event, rowData) => { navigate(`/packages/updatepackage/${rowData._id}`) }
 
-                    alignItems="center"
-                    justifyContent="center"
-                    style={{ minHeight: '50vh' }}>
-
-                    <div style={{ height: 400, width: '100%' }}>
-                        <DataGrid
-                            rows={tabledata}
-                            columns={columns}
-                            pageSize={5}
-                            rowsPerPageOptions={[5]}
-                            getRowId={(row) => row._id}
-
-
-
-
-                        />
+                                    },
+                                    {
+                                        icon: 'add_box',
+                                        tooltip: "Add New",
+                                        position: "toolbar",
+                                        onClick: () => navigate("/addpackage")
+                                    }
+                                ]}
+                                options={{
+                                    actionsColumnIndex: -1,
+                                    exportButton: true,
+                                    search: true
+                                }}
+                            />
+                        </div>
+                        <ToastContainer />
                     </div>
-                </Grid>
-            </Box>
-        </>
+                </div>
+            </div>
 
-
-    )
-}
-
-export default Packages
-
-
-
-
-
+        </div>
+    );
+};
+export default Packages;

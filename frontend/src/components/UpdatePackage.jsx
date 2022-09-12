@@ -1,152 +1,116 @@
-import React, { useEffect, useState } from 'react'
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import axios from "axios";
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+//import * as FaIcons from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PackageController from "../controllers/package_contoller";
+import { useNavigate, useParams } from "react-router-dom";
 
+const UpdateResort = (props) => {
 
-
-const theme = createTheme();
-
-function UpdatePackage() {
-
-
-    const [data, setData] = useState("");
-
-    const { id } = useParams()
+    const [data, setData] = useState({});
+    const [btnDisable, setBtnDisable] = useState(false);
+    const navigate = useNavigate();
+    //const params = useParams();
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/packages/${id}`).then((response) => {
-
-            setData(response.data)
-        })
+        loadData()
     }, []);
 
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [price, setPrice] = useState("");
+    // useEffect(async() => {
+    //     let res = await fetch("http://localhost:5000/api/resorts/getone/"+props.match.params.id);
+    //     res = await res.json();
+    //     setData(res)
+    // },[]);
 
-    const handleDes = (e) => {
-        setDescription(e.target.value);
-    };
-    const handlePrice = (e) => {
-        setPrice(e.target.value);
-    };
-    const handleName = (e) => {
-        setName(e.target.value);
-    };
-    const navigate = useNavigate();
+    const loadData = () => {
+        let urldata = window.location.pathname.split("/");
+        let userid = urldata[urldata.length - 1];
+        console.log(userid);
+        PackageController.PackageGetOne(userid).then((res) => {
+            console.log(res);
+            setData(res.data)
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const packagee = {
-            name: name,
-            description: description,
-            price: price,
-        };
-        axios
-            .patch(`http://localhost:5000/packages/${id}`, packagee, {
-            })
-            .then((res) => {
-                console.log(res.data);
-                if (res.status === 201) {
-                    console.log("kgakganlldk");
-                    navigate('/packages')
+
+
+
+    const onSubmitClick = async (e) => {
+        e.preventDefault();
+        console.log(data);
+        setBtnDisable(true);
+
+        try {
+            PackageController.PackageUpdate(data._id, data).then((res) => {
+                console.log(res);
+                if (res.success) {
+                    toast.success("Successfully Updated")
                 } else {
-                    console.log("fdsaasgasghahahahbd");
+                    toast.error("Failed to Update")
                 }
-            })
-            .catch((err) => {
+                loadData()
+                setBtnDisable(false);
+            }).catch((err) => {
                 console.log(err);
-            });
+                setBtnDisable(false);
+            })
+        } catch (error) {
+            setBtnDisable(false);
+        }
+    }
 
-    };
+    const clearForm = () => {
+        setBtnDisable(false);
+        setData({ name: '', description: '', price: 0 })
+    }
 
     return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        pb: 20
+        <div className=''>
+            <div className='mx-3 my-3 '>
+                <div className=''>
+                    <h3><center>Package Update Window</center></h3>
+                </div>
+            </div>
 
-                    }}
-                >
-
-                    <Typography component="h1" variant="h5">
-                        Update Package
-                    </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
-
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    defaultValue={data.name}
-                                    id="name"
-                                    label="Name"
-                                    name="name"
-                                    onChange={(e) => handleName(e)}
-
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    multiline
-                                    rows={4}
-                                    id="description"
-                                    label="Description"
-                                    name="description"
-                                    onChange={(e) => handleDes(e)}
-
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="price"
-                                    label="Price"
-                                    name="price"
-                                    type="number"
-                                    onChange={(e) => handlePrice(e)}
-
-                                />
-                            </Grid>
+            <div className=''>
+                <div className='row mx-3 my-3'>
+                    <div className='col-5 mx-auto'>
+                        <div className='card mx-3 my-3 shadow-sm rounded'>
+                            <div className='px-4'>
+                                <form>
+                                    <div className='my-3'>
+                                        <label htmlFor='name' className='form-label'>Name</label>
+                                        <input type="text" className='form-control' id="name"
+                                            value={data.name} onChange={(e) => { setData({ ...data, name: e.target.value }) }} />
+                                    </div>
+                                    <div className='my-3'>
+                                        <label htmlFor='description' className='form-label'>Description</label>
+                                        <input type="text" className='form-control' id="description"
+                                            value={data.description} onChange={(e) => { setData({ ...data, description: e.target.value }) }} />
+                                    </div>
+                                    <div className='my-3'>
+                                        <label htmlFor='price' className='form-label'>Price</label>
+                                        <input type="number" className='form-control' id="price"
+                                            value={data.price} onChange={(e) => { setData({ ...data, price: e.target.value }) }} />
+                                    </div>
 
 
+                                    <center>
+                                        <button type='submit' disabled={btnDisable} className='btn btn-primary my-3' onClick={(e) => { onSubmitClick(e) }}>Update</button>
+                                        <button className='btn btn-secondary my-3 mx-3' onClick={(e) => { navigate("/packages"); }}>Show List</button>
+                                    </center>
+                                    <ToastContainer />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+        </div>
 
-                        </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Update Package
-                        </Button>
-
-                    </Box>
-                </Box>
-
-            </Container>
-        </ThemeProvider>
-    )
-}
-
-export default UpdatePackage
-
+    );
+};
+export default UpdateResort;

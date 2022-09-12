@@ -24,11 +24,11 @@ mongoose.connect(process.env.DATABASE_URL, {
 //routes
 app.use("/subscribers", subscribersRouter);
 app.use("/user", userRouter);
-app.use("/packages", packagesRouter);
+app.use("/api/packages", packagesRouter);
 app.use("/api/products/", productRouter);
 app.use("/liveboard", liveBoardsRouter);
 app.use("/lbBooings", LbBooking);
-app.use('/api/resorts', resortsRoutes);
+app.use("/api/resorts", resortsRoutes);
 
 app.listen(PORT, () =>
   console.log(`Server is up and running on https://localhost:${PORT}`)

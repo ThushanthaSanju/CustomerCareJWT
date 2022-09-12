@@ -14,7 +14,7 @@ import UpdatePackage from "./components/UpdatePackage";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Header />
 
       <Routes>
