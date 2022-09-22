@@ -1,7 +1,9 @@
 import Package from "../models/package.js";
+import User from "../models/userModel.js";
+import asyncHandler from "express-async-handler";
 
 export const allPackage = async (req, res, next) => {
-  Package.find()
+  Package.find({ user: req.user.id })
     .then((packages) => {
       if (packages.length < 1) {
         return res.status(402).json({
@@ -21,6 +23,14 @@ export const allPackage = async (req, res, next) => {
         error: err,
       });
     });
+};
+export const allPackageuser = async (req, res, next) => {
+  try {
+    const packages = await Package.find();
+    res.json(packages);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 export const onePackage = (req, res) => {
@@ -48,16 +58,37 @@ export const onePackage = (req, res) => {
     });
 };
 
+// export const createPackage = asyncHandler(async (req, res) => {
+//   if (!req.body.text) {
+//     res.status(400);
+//     throw new Error("Please add a text field");
+//   }
+
+//   const Newpackage = await Package.create({
+//     text: req.body.text,
+//     user: req.user.id,
+//   });
+
+//   res.status(200).json(Newpackage);
+// });
+
 export const createPackage = async (req, res) => {
   try {
-    const lrqDetails = req.body;
-    const newPackage = new Package(lrqDetails);
+    // const lrqDetails = { text: req.body, user: req.user.id };
+
+    // // const newPackage = new Package(lrqDetails);
+    const newPackage = new Package({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      user: req.user.id,
+    });
 
     await newPackage.save(function (err) {
       if (err) {
         console.log(err);
         res.status(600).json({
-          message: "Error occured when creating newPackage.",
+          message: "Error occur when creating newPackage.",
           error: err,
         });
         return;
@@ -80,6 +111,19 @@ export const createPackage = async (req, res) => {
 
 export const updatePackage = async (req, res) => {
   let query = { _id: req.params.id };
+  const packagee = await Package.findById(req.params.id);
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error("No user ");
+  }
+
+  if (packagee.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error(" user not authorized ");
+  }
+
   Package.findOne(query)
     .exec()
     .then((found_packages) => {
@@ -89,13 +133,13 @@ export const updatePackage = async (req, res) => {
         });
       } else {
         if (req.body.name != null) {
-          res.package.name = req.body.name;
+          found_packages.name = req.body.name;
         }
         if (req.body.description != null) {
-          res.package.description = req.body.description;
+          found_packages.description = req.body.description;
         }
         if (req.body.price != null) {
-          res.package.price = req.body.price;
+          found_packages.price = req.body.price;
         }
 
         // found_packages.updated_at = new Date();
@@ -123,7 +167,18 @@ export const updatePackage = async (req, res) => {
 
 export const deletePackage = async (req, res) => {
   let query = { _id: req.params.id };
+  const packagee = await Package.findById(req.params.id);
+  const user = await User.findById(req.user.id);
 
+  if (!user) {
+    res.status(401);
+    throw new Error("No user ");
+  }
+
+  if (packagee.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error(" user not authorized ");
+  }
   Package.findOne(query)
     .exec()
     .then((found_packages) => {
