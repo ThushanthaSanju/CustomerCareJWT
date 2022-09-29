@@ -7,6 +7,11 @@ import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import PackageController from "../controllers/package_contoller";
 
+
+
+
+
+
 const Packages = () => {
 
     const [data, setData] = useState([]);
@@ -14,6 +19,7 @@ const Packages = () => {
 
     useEffect(() => {
         loadData()
+
     }, []);
 
 
@@ -49,6 +55,7 @@ const Packages = () => {
 
 
     return (
+
         <div className=''>
             <div className='mx-3 my-3 '>
                 <div className=''>
@@ -61,8 +68,10 @@ const Packages = () => {
                     <div className='col-8 mx-auto'>
                         <div className='card mx-3 my-3 shadow-sm rounded'>
                             <MaterialTable
+
                                 title="Package Details"
                                 columns={[
+
                                     { title: 'Name', field: 'name' },
                                     { title: 'Description', field: 'description' },
                                     { title: 'Price', field: 'price' },

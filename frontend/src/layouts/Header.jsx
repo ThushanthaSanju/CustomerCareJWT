@@ -22,14 +22,14 @@ const Header = () => {
                 <Toolbar >
                     <ScubaDivingIcon fontSize="large" />
                     <Typography >{'\u00A0'}{'\u00A0'} Diving App{'\u00A0'}{'\u00A0'}</Typography>
-                    <Tabs sx={{ marginRight: 'auto' }} textColor="inherit" value={value} onChange={(e, value) => setValue(value)} indicatorColor='secondary'>
+                    <Tabs sx={{ marginRight: 'auto', "& button:Mui-selected": { backgroundColor: "red" } }} textColor="inherit" value={value} onChange={(e, value) => setValue(value)} indicatorColor='secondary'>
 
 
 
-                        <Tab label="Live Boards" onClick={() => navigate('/')} />
-                        <Tab label="Diving Resorts" onClick={() => navigate('/resorts')} />
-                        <Tab label="Diving Packages" onClick={() => navigate('/packages')} />
-                        <Tab label="Snorkeling" onClick={() => navigate('/')} />
+                        <Tab label="Live Boards" />
+                        <Tab label="Diving Resorts" href="/resorts" />
+                        <Tab label="Diving Packages" href="/packages" />
+                        <Tab label="Snorkeling" />
 
 
 

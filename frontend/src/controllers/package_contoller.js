@@ -20,12 +20,13 @@ class PackageControl {
   async PackageCreate(data) {
     console.log(data);
 
-    // const config = {
-    //     headers: { Authorization: `${localStorage.getItem('usertoken')}` }
-    // };
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    };
+
     return new Promise((resolve, reject) => {
       axios
-        .post(`${Config.host}${Config.port}${api.packageCreate}`, data)
+        .post(`${Config.host}${Config.port}${api.packageCreate}`, data, config)
         .then((Response) => {
           resolve(Response.data);
         })
@@ -36,12 +37,12 @@ class PackageControl {
   }
 
   async PackageGet(params) {
-    // const config = {
-    //     headers: { Authorization: `${localStorage.getItem('usertoken')}` }
-    // };
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    };
     return new Promise((resolve, reject) => {
       return axios
-        .get(`${Config.host}${Config.port}${api.packageGetAll}`)
+        .get(`${Config.host}${Config.port}${api.packageGetAll}`, config)
         .then((result) => {
           if (result.status === 200) {
             resolve(result.data);
@@ -56,12 +57,15 @@ class PackageControl {
   }
 
   async PackageGetOne(params) {
-    // const config = {
-    //     headers: { Authorization: `${localStorage.getItem('usertoken')}` }
-    // };
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    };
     return new Promise((resolve, reject) => {
       return axios
-        .get(`${Config.host}${Config.port}${api.packageGetOne}/${params}`)
+        .get(
+          `${Config.host}${Config.port}${api.packageGetOne}/${params}`,
+          config
+        )
         .then((result) => {
           if (result.status === 200) {
             resolve(result.data);
@@ -76,12 +80,18 @@ class PackageControl {
   }
 
   async PackageUpdate(id, data) {
-    // const config = {
-    //   headers: { Authorization: `${localStorage.getItem("usertoken")}` },
-    // };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
     return new Promise((resolve, reject) => {
       return axios
-        .patch(`${Config.host}${Config.port}${api.packageUpdate}/${id}`, data)
+        .patch(
+          `${Config.host}${Config.port}${api.packageUpdate}/${id}`,
+          data,
+          config
+        )
         .then((result) => {
           if (result.status === 200) {
             resolve(result.data);
@@ -96,12 +106,15 @@ class PackageControl {
   }
 
   async PackageDelete(params) {
-    // const config = {
-    //     headers: { Authorization: `${localStorage.getItem('usertoken')}` }
-    // };
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    };
     return new Promise((resolve, reject) => {
       return axios
-        .delete(`${Config.host}${Config.port}${api.packageDelete}/${params}`)
+        .delete(
+          `${Config.host}${Config.port}${api.packageDelete}/${params}`,
+          config
+        )
         .then((result) => {
           if (result.status === 200) {
             resolve(result.data);

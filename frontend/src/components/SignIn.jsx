@@ -12,6 +12,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 // function Copyright(props) {
 //     return (
@@ -31,14 +33,53 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 export default function SignIn() {
+
+    const navigate = useNavigate()
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
+        const log = ({
             email: data.get('email'),
             password: data.get('password'),
         });
+
+        axios
+            .post(`http://localhost:5000/user/login`, log, {
+
+            })
+            .then((res) => {
+                console.log(res.data);
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("user", JSON.stringify(res.data));
+
+                console.log(res.data.status);
+                if (res.status === 200) {
+
+                    if (res.data.status === 'Admin') {
+                        navigate("/admindashboard");
+                    } else {
+                        navigate("/");
+                    }
+                }
+                if (res.status === 401) {
+
+                    console.log("Error");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
+
+
+
+
+
+
+
+
+
 
     return (
         <ThemeProvider theme={theme}>

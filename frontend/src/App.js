@@ -11,31 +11,41 @@ import CreateResort from "./components/createResort";
 import ShowResort from "./pages/showResorts";
 import UpdateResort from "./components/updateResort";
 import UpdatePackage from "./components/UpdatePackage";
+import AdminDash from "./layouts/AdminDash";
 
 function App() {
   return (
     <div>
       <Header />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/packages" element={<Packages />} />
-        <Route path="/addpackage" element={<AddPackage />} />
-        <Route path="/resorts" element={<ShowResort />} />
-        <Route path="/create-resorts" element={<CreateResort />} />
-        <Route
-          path="/update-resorts/:id"
-          exact={false}
-          element={<UpdateResort />}
-        />
-        <Route
-          path="/packages/updatepackage/:id"
-          exact={false}
-          element={<UpdatePackage />}
-        />
-      </Routes>
+      <section>
+        {localStorage.getItem("token") ? (
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/packages" element={<Packages />} />
+            <Route path="/addpackage" element={<AddPackage />} />
+            <Route path="/admindashboard" element={<AdminDash />} />
+            <Route path="/resorts" element={<ShowResort />} />
+            <Route path="/create-resorts" element={<CreateResort />} />
+            <Route
+              path="/update-resorts/:id"
+              exact={false}
+              element={<UpdateResort />}
+            />
+            <Route
+              path="/packages/updatepackage/:id"
+              exact={false}
+              element={<UpdatePackage />}
+            />
+          </Routes>
+        ) : (
+          <Routes>
+            <Route path="/" element={<SignIn />} />
+          </Routes>
+        )}
+      </section>
 
       <Footer />
     </div>
