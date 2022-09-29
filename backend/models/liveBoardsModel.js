@@ -3,13 +3,13 @@ import mongoose from "mongoose";
 //for create table into db
 const liveboardSchema = new mongoose.Schema({
 
-    liveboardID: { type: String, required: true },
-    name: { type: String, required: true },
+    fname: { type: String, required: true },
     facilities: { type: String, required: true },
-    price: { type: Number, required: true },
+    price: { type: String, required: true },
     description: { type: String, required: true },
-    capacity: { type: Number, required: true },
-    image: { type: String, required: true }
+    capacity: { type: String, required: true },
+    image: { type: String },
+    cloudinary_id: { type: String },
 
 }, {
     //for date

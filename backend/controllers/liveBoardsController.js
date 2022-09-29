@@ -13,19 +13,19 @@ export const getLiveBoardController = async (req, res) => {
 }
 
 //for add
-export const addLiveBoardController = async (req, res) => {
+// export const addLiveBoardController = async (req, res) => {
 
-    try {
+//     try {
 
-        const newLiveBoards = new LiveBoard(req.body);
-        await newLiveBoards.save();
-        res.status(200).send("LiveBoards Created Successfully!");
+//         const newLiveBoards = new LiveBoard(req.body);
+//         await newLiveBoards.save();
+//         res.status(200).send("LiveBoards Created Successfully!");
 
-    } catch(error) {
-        console.log(error);
-    }
+//     } catch(error) {
+//         console.log(error);
+//     }
 
-}
+// }
 
 //for update
 export const updateLiveBoardController = async (req, res) => {

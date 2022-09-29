@@ -8,6 +8,8 @@ import productRouter from "./routes/productsRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import liveBoardsRouter from './routes/liveboardsRoutes.js';
 import LbBooking from "./routes/LbBookingsRoutes.js";
+import lBoardRoute from "./controllers/lBoardController.js";
+
 
 const PORT = process.env.PORT || "5000";
 dotenv.config();
@@ -27,7 +29,8 @@ app.use("/packages", packagesRouter);
 app.use("/api/products/", productRouter);
 app.use('/api/products/', productRouter);
 app.use('/liveboard', liveBoardsRouter);
-app.use('/lbBooings', LbBooking);
+app.use('/lbBookings', LbBooking);
+app.use("/lBoard", lBoardRoute);
 
 app.listen(PORT, () =>
   console.log(`Server is up and running on https://localhost:${PORT}`)

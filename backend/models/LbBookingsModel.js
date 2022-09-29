@@ -3,13 +3,19 @@ import mongoose from "mongoose";
 //for create table into db
 const lbBookingSchema = new mongoose.Schema({
 
-    lbBookingID: { type: String, required: true },
-    name: { type: String, required: true },
-    facilities: { type: String, required: true },
-    price: { type: Number, required: true },
-    description: { type: String, required: true },
-    capacity: { type: Number, required: true },
-    image: { type: String, required: true }
+    booingID: { type: String },
+    email: { type: String },
+    facilities: { type: String},
+    contact: { type: String },
+    lbName: { type: String},
+    date: { type: String},
+    hours: { type: String},
+    amount: { type: String},
+    fType: { type: String},
+    count: { type: String},
+    spRequirement: { type: String},
+    
+
 
 }, {
     //for date
