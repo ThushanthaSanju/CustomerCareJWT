@@ -17,8 +17,9 @@ const api = {
 class PackageControl {
   api;
 
-  async PackageCreate(data) {
+  async PackageCreate(data, file) {
     console.log(data);
+    console.log(file);
 
     const config = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

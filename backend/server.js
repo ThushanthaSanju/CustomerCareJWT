@@ -9,6 +9,7 @@ import userRouter from "./routes/userRoutes.js";
 import liveBoardsRouter from "./routes/liveboardsRoutes.js";
 import LbBooking from "./routes/LbBookingsRoutes.js";
 import resortsRoutes from "./routes/resortsRoute.js";
+import cloudinary from "./cloudinary/cloudinary.js";
 
 const PORT = process.env.PORT || "5000";
 dotenv.config();

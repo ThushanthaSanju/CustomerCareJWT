@@ -12,6 +12,7 @@ import ShowResort from "./pages/showResorts";
 import UpdateResort from "./components/updateResort";
 import UpdatePackage from "./components/UpdatePackage";
 import AdminDash from "./layouts/AdminDash";
+import { PackageDetails } from "./components/PackageDetails";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/packages" element={<Packages />} />
             <Route path="/addpackage" element={<AddPackage />} />
             <Route path="/admindashboard" element={<AdminDash />} />
+            <Route path="/packagedetails" element={<PackageDetails />} />
             <Route path="/resorts" element={<ShowResort />} />
             <Route path="/create-resorts" element={<CreateResort />} />
             <Route
@@ -42,7 +44,9 @@ function App() {
           </Routes>
         ) : (
           <Routes>
-            <Route path="/" element={<SignIn />} />
+            <Route path="/signin" element={<SignIn />} />
+
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         )}
       </section>

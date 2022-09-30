@@ -75,7 +75,7 @@ export const onePackage = (req, res) => {
 export const createPackage = async (req, res) => {
   try {
     // const lrqDetails = { text: req.body, user: req.user.id };
-
+    console.log(req.body);
     // // const newPackage = new Package(lrqDetails);
     const newPackage = new Package({
       name: req.body.name,
