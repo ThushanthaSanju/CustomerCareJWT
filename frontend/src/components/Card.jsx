@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -11,9 +11,10 @@ import Collapse from '@mui/material/Collapse';
 import Sea from "../images/sea.jpg"
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
+import { useNavigate } from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Button } from '@material-ui/core';
+import axios from 'axios';
 
 
 const ExpandMore = styled((props) => {
@@ -30,6 +31,36 @@ const ExpandMore = styled((props) => {
 
 const Carditem = ({ item }) => {
 
+
+
+    const handleSubmit = (event) => {
+
+        // e.preventDefault();
+        // setBtnDisable(true);
+
+        // try {
+        //     if (validateForm()) {
+        //        (data).then((res) => {
+        //             console.log(res);
+        //             if (res.success) {
+        //                 toast.success("Booking Success")
+        //             } else {
+        //                 toast.error("Booking Failed")
+        //             }
+        //             clearForm()
+        //             setBtnDisable(false);
+        //         }).catch((err) => {
+        //             console.log(err);
+        //             setBtnDisable(false);
+        //         })
+        //     }
+        // } catch (error) {
+        //     setBtnDisable(false);
+
+        // }
+
+    }
+
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -42,14 +73,14 @@ const Carditem = ({ item }) => {
                 title={item.name}
 
             />
-            <CardMedia
+            {/* <CardMedia
                 component="img"
                 height="194"
                 width="154"
 
                 image={Sea}
                 alt="Diver"
-            />
+            /> */}
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
                     {item.description}
@@ -71,7 +102,7 @@ const Carditem = ({ item }) => {
                     <Typography>
                         Rs.{item.price}.00
                     </Typography>
-                    <Button style={{ backgroundColor: '#03a1fc', color: '#FFFFFF' }} href="/packagedetails"> Book Now</Button>
+                    <Button style={{ backgroundColor: '#03a1fc', color: '#FFFFFF' }} onClick={handleSubmit}> Book Now</Button>
                 </CardContent>
             </Collapse>
         </Card></div>
