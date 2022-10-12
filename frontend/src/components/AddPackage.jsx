@@ -121,7 +121,7 @@ const CreateResort = () => {
                                         <input type="number" className='form-control' id="price"
                                             value={data.price} onChange={(e) => { setData({ ...data, price: e.target.value }) }} />
                                     </div>
-                                    <div className='my-3'>
+                                    {/* <div className='my-3'>
                                         <label htmlFor='price' className='form-label'>Price</label>
 
                                         <input type="file" className='form-control' id="image"
@@ -129,7 +129,7 @@ const CreateResort = () => {
                                     </div>
                                     <div className='my-3'>
                                         {uploadedimage === "" ? <></> : <img src={uploadedimage} alt="" height="300px" width="450px" />}
-                                    </div>
+                                    </div> */}
 
 
                                     <center>
