@@ -9,7 +9,7 @@ import userRouter from "./routes/userRoutes.js";
 import liveBoardsRouter from "./routes/liveboardsRoutes.js";
 import LbBooking from "./routes/LbBookingsRoutes.js";
 import resortsRoutes from "./routes/resortsRoute.js";
-import cloudinary from "./cloudinary/cloudinary.js";
+import packageBookingRoutes from "./routes/packageBooking.js";
 
 const PORT = process.env.PORT || "5000";
 dotenv.config();
@@ -26,6 +26,7 @@ mongoose.connect(process.env.DATABASE_URL, {
 app.use("/subscribers", subscribersRouter);
 app.use("/user", userRouter);
 app.use("/api/packages", packagesRouter);
+app.use("/api/packagebooking", packageBookingRoutes);
 app.use("/api/products/", productRouter);
 app.use("/liveboard", liveBoardsRouter);
 app.use("/lbBooings", LbBooking);

@@ -76,12 +76,16 @@ export const createPackage = async (req, res) => {
   try {
     // const lrqDetails = { text: req.body, user: req.user.id };
     console.log(req.body);
+    // // Upload image to cloudinary
+    // const result = await cloudinary.uploader.upload(req.file.path);
     // // const newPackage = new Package(lrqDetails);
     const newPackage = new Package({
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
       user: req.user.id,
+      // image: result.secure_url,
+      // cloudinary_id: result.public_id,
     });
 
     await newPackage.save(function (err) {
