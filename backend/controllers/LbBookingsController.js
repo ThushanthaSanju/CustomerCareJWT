@@ -16,7 +16,7 @@ export const getLbBookingController = async (req, res) => {
 export const addLbBookingController = async (req, res) => {
 
     try {
-
+        console.log(req.body);
         const newLbBookings = new LbBooking(req.body);
         await newLbBookings.save();
         res.status(200).send("LbBookings Created Successfully!");
@@ -26,6 +26,8 @@ export const addLbBookingController = async (req, res) => {
     }
 
 }
+
+
 
 // //for update
 // export const updateLbBookingController = async (req, res) => {

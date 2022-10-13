@@ -6,23 +6,27 @@ import {
   createPackage,
   updatePackage,
   deletePackage,
+  allPackageuser,
 } from "../controllers/package.js";
+import protect from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 // Getting all
-router.get("/", allPackage);
+router.get("/", protect, allPackage);
+// Getting all
+router.get("/all", allPackageuser);
 
 // Getting One
-router.get("/:id", getPackage, onePackage);
+router.get("/:id", protect, getPackage, onePackage);
 
 // Creating one
-router.post("/", createPackage);
+router.post("/", protect, createPackage);
 
 // Updating One
-router.patch("/:id", getPackage, updatePackage);
+router.patch("/:id", protect, getPackage, updatePackage);
 
 // Deleting One
-router.delete("/:id", getPackage, deletePackage);
+router.delete("/:id", protect, getPackage, deletePackage);
 
 async function getPackage(req, res, next) {
   let packagee;

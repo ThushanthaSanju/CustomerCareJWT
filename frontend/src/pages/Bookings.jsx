@@ -49,7 +49,6 @@ const Bookings = (props) => {
     //     />
     //   ),
     // },
-    { title: "BookingID", field: "booingID" },
     { title: "Email", field: "email" },
     { title: "Facilities", field: "facilities" },
     { title: "Contact", field: "contact", type: "numeric" },
@@ -160,16 +159,7 @@ const Bookings = (props) => {
         </div>
 
         <MaterialTable
-        //   title={
-        //     <Button
-        //       id="btnAdd"
-        //       variant="contained"
-        //       color="primary"
-        //       href="/addliveboard"
-        //     >
-        //       Add new Liveboards
-        //     </Button>
-        //   }
+        title=""
           columns={columns}
           data={data}
         //   editable={{
@@ -189,19 +179,11 @@ const Bookings = (props) => {
               color: "rgba(0, 0, 0)",
             },
             actionsColumnIndex: -1,
-            toolbar:false,
+            exportButton: true,
+            search: true
           }}
         />
 
-          <Button
-              id="btnrep"
-              variant="contained"
-              style={{float: 'right'}}
-              color="primary"
-              href="/"
-            >
-              Report
-            </Button>
       </div>
     </div>
   );

@@ -9,10 +9,10 @@ const lbBookingSchema = new mongoose.Schema({
     contact: { type: String },
     lbName: { type: String},
     date: { type: String},
-    hours: { type: String},
-    amount: { type: String},
+    hours: { type: Number},
+    amount: { type: Number},
     fType: { type: String},
-    count: { type: String},
+    count: { type: Number},
     spRequirement: { type: String},
     
 

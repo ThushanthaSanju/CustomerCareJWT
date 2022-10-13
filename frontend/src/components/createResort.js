@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 //import * as FaIcons from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import PackageController from "../controllers/package_contoller";
+import ResortCtrl from "../controllers/resorts_ctrl";
 import { useNavigate } from "react-router-dom";
 
 const CreateResort = () => {
     //form data
-    const [data, setData] = useState({ name: '', description: '', price: 0 });
+    const [data, setData] = useState({ name: '', location: '', rooms: 0, stars: 0, description: '', images: [] });
     const [btnDisable, setBtnDisable] = useState(false);
     const navigate = useNavigate();
 
@@ -22,12 +22,12 @@ const CreateResort = () => {
 
         try {
             if (validateForm()) {
-                PackageController.PackageCreate(data).then((res) => {
+                ResortCtrl.ResortCreate(data).then((res) => {
                     console.log(res);
                     if (res.success) {
-                        toast.success("Package created Success")
+                        toast.success("Registration Success")
                     } else {
-                        toast.error("Creation Failed")
+                        toast.error("Registration Failed")
                     }
                     clearForm()
                     setBtnDisable(false);
@@ -45,7 +45,7 @@ const CreateResort = () => {
     //form clearance
     const clearForm = () => {
         setBtnDisable(false);
-        setData({ name: '', description: '', price: 0 })
+        setData({ name: '', location: '', rooms: 0, stars: 0, description: '', images: [] })
     }
 
     //validation
@@ -55,16 +55,26 @@ const CreateResort = () => {
             toast.error("Please enter the name");
             return false;
         }
+        else if (!data.location) {
+            toast.error("Please enter the location");
+            return false;
+        }
+        else if (!data.rooms) {
+            toast.error("Please enter the no of rooms");
+            return false;
+        }
+        else if (!data.stars) {
+            toast.error("Please enter the star rating")
+            return false;
+        }
         else if (!data.description) {
             toast.error("Please enter the description");
             return false;
         }
-        else if (!data.price) {
-            toast.error("Please enter the price");
+        else if (!data.images) {
+            toast.error("Please enter the images");
             return false;
         }
-
-
 
         return true;
     }
@@ -73,7 +83,7 @@ const CreateResort = () => {
         <div className=''>
             <div className='mx-3 my-3 '>
                 <div className=''>
-                    <h3><center>Package Create Window</center></h3>
+                    <h3><center>Resort Create Window</center></h3>
                 </div>
             </div>
 
@@ -89,20 +99,28 @@ const CreateResort = () => {
                                             value={data.name} onChange={(e) => { setData({ ...data, name: e.target.value }) }} />
                                     </div>
                                     <div className='my-3'>
+                                        <label htmlFor='location' className='form-label'>Location</label>
+                                        <input type="text" className='form-control' id="location"
+                                            value={data.location} onChange={(e) => { setData({ ...data, location: e.target.value }) }} />
+                                    </div>
+                                    <div className='my-3'>
+                                        <label htmlFor='rooms' className='form-label'>No of Rooms</label>
+                                        <input type="number" className='form-control' id="rooms"
+                                            value={data.rooms} onChange={(e) => { setData({ ...data, rooms: e.target.value }) }} />
+                                    </div>
+                                    <div className='my-3'>
+                                        <label htmlFor='stars' className='form-label'>Stars</label>
+                                        <input type="number" className='form-control' id="stars"
+                                            value={data.stars} onChange={(e) => { setData({ ...data, stars: e.target.value }) }} />
+                                    </div>
+                                    <div className='my-3'>
                                         <label htmlFor='description' className='form-label'>Description</label>
                                         <input type="text" className='form-control' id="description"
                                             value={data.description} onChange={(e) => { setData({ ...data, description: e.target.value }) }} />
                                     </div>
-                                    <div className='my-3'>
-                                        <label htmlFor='price' className='form-label'>Price</label>
-                                        <input type="number" className='form-control' id="price"
-                                            value={data.price} onChange={(e) => { setData({ ...data, price: e.target.value }) }} />
-                                    </div>
-
-
                                     <center>
                                         <button type='submit' disabled={btnDisable} className='btn btn-primary my-3' onClick={(e) => { onSubmitClick(e) }}>CREATE</button>
-                                        <button className='btn btn-secondary my-3 mx-3' onClick={(e) => { navigate("/packages"); }}>Show List</button>
+                                        <button className='btn btn-secondary my-3 mx-3' onClick={(e) => { navigate("/resorts"); }}>Show List</button>
                                     </center>
                                     <ToastContainer />
                                 </form>

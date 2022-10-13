@@ -3,77 +3,74 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PackageController from "../controllers/package_contoller";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const CreateResort = () => {
-    //form data
-    const [data, setData] = useState({ name: '', description: '', price: 0 });
+const UpdateResort = (props) => {
+
+    const [data, setData] = useState({});
     const [btnDisable, setBtnDisable] = useState(false);
     const navigate = useNavigate();
+    //const params = useParams();
 
-    /*const onChangePicture = (e) => {
-        console.log('picture:',images);
-        setImages(e.target.files[0]);
-    };*/
+    useEffect(() => {
+        loadData()
+    }, []);
+
+    // useEffect(async() => {
+    //     let res = await fetch("http://localhost:5000/api/resorts/getone/"+props.match.params.id);
+    //     res = await res.json();
+    //     setData(res)
+    // },[]);
+
+    const loadData = () => {
+        let urldata = window.location.pathname.split("/");
+        let userid = urldata[urldata.length - 1];
+        console.log(userid);
+        PackageController.PackageGetOne(userid).then((res) => {
+            console.log(res);
+            setData(res.data)
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
+
+
 
     const onSubmitClick = async (e) => {
         e.preventDefault();
+        console.log(data);
         setBtnDisable(true);
 
         try {
-            if (validateForm()) {
-                PackageController.PackageCreate(data).then((res) => {
-                    console.log(res);
-                    if (res.success) {
-                        toast.success("Package created Success")
-                    } else {
-                        toast.error("Creation Failed")
-                    }
-                    clearForm()
-                    setBtnDisable(false);
-                }).catch((err) => {
-                    console.log(err);
-                    setBtnDisable(false);
-                })
-            }
+            PackageController.PackageUpdate(data._id, data).then((res) => {
+                console.log(res);
+                if (res.success) {
+                    toast.success("Successfully Updated")
+                } else {
+                    toast.error("Failed to Update")
+                }
+                loadData()
+                setBtnDisable(false);
+            }).catch((err) => {
+                console.log(err);
+                setBtnDisable(false);
+            })
         } catch (error) {
             setBtnDisable(false);
-
         }
     }
 
-    //form clearance
     const clearForm = () => {
         setBtnDisable(false);
         setData({ name: '', description: '', price: 0 })
-    }
-
-    //validation
-    const validateForm = () => {
-        //toast.success("Data added")
-        if (!data.name) {
-            toast.error("Please enter the name");
-            return false;
-        }
-        else if (!data.description) {
-            toast.error("Please enter the description");
-            return false;
-        }
-        else if (!data.price) {
-            toast.error("Please enter the price");
-            return false;
-        }
-
-
-
-        return true;
     }
 
     return (
         <div className=''>
             <div className='mx-3 my-3 '>
                 <div className=''>
-                    <h3><center>Package Create Window</center></h3>
+                    <h3><center>Package Update Window</center></h3>
                 </div>
             </div>
 
@@ -101,7 +98,7 @@ const CreateResort = () => {
 
 
                                     <center>
-                                        <button type='submit' disabled={btnDisable} className='btn btn-primary my-3' onClick={(e) => { onSubmitClick(e) }}>CREATE</button>
+                                        <button type='submit' disabled={btnDisable} className='btn btn-primary my-3' onClick={(e) => { onSubmitClick(e) }}>Update</button>
                                         <button className='btn btn-secondary my-3 mx-3' onClick={(e) => { navigate("/packages"); }}>Show List</button>
                                     </center>
                                     <ToastContainer />
@@ -113,6 +110,7 @@ const CreateResort = () => {
             </div>
 
         </div>
+
     );
 };
-export default CreateResort;
+export default UpdateResort;

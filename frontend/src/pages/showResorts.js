@@ -5,26 +5,20 @@ import MaterialTable from 'material-table';
 import { useNavigate } from "react-router-dom";
 
 import 'react-toastify/dist/ReactToastify.css';
-import PackageController from "../controllers/package_contoller";
+import ResortCtrl from "../controllers/resorts_ctrl";
 
-
-
-
-
-
-const Packages = () => {
+const ShowResort = () => {
 
     const [data, setData] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         loadData()
-
     }, []);
 
 
     const loadData = () => {
-        PackageController.PackageGet().then((res) => {
+        ResortCtrl.ResortGet().then((res) => {
             console.log(res);
             setData(res.data)
         }).catch((err) => {
@@ -37,7 +31,7 @@ const Packages = () => {
         console.log(data);
 
         try {
-            PackageController.PackageDelete(data._id).then((res) => {
+            ResortCtrl.ResortDelete(data._id).then((res) => {
                 console.log(res);
                 if (res.success) {
                     toast.success("Successfully Deleted")
@@ -55,11 +49,10 @@ const Packages = () => {
 
 
     return (
-
         <div className=''>
             <div className='mx-3 my-3 '>
                 <div className=''>
-                    <h3><center>Package List</center></h3>
+                    <h3><center>Resort List</center></h3>
                 </div>
             </div>
 
@@ -68,33 +61,32 @@ const Packages = () => {
                     <div className='col-8 mx-auto'>
                         <div className='card mx-3 my-3 shadow-sm rounded'>
                             <MaterialTable
-
-                                title="Package Details"
+                                title="Resort Details"
                                 columns={[
-
                                     { title: 'Name', field: 'name' },
+                                    { title: 'Location', field: 'location' },
+                                    { title: 'Rooms', field: 'rooms', type: 'numeric' },
+                                    { title: 'Stars', field: 'stars', type: 'numeric' },
                                     { title: 'Description', field: 'description' },
-                                    { title: 'Price', field: 'price' },
-
                                 ]}
                                 data={data}
                                 actions={[
                                     {
                                         icon: 'delete',
-                                        tooltip: 'Delete Package',
+                                        tooltip: 'Delete Resort',
                                         onClick: (event, rowData) => { onDelete(event, rowData) }
                                     },
                                     {
                                         icon: 'update',
-                                        tooltip: 'Update Package',
-                                        onClick: (event, rowData) => { navigate(`/packages/updatepackage/${rowData._id}`) }
-
+                                        tooltip: 'Update Resort',
+                                        onClick: (event, rowData) => { navigate(`/update-resorts/${rowData._id}`) }
+                                        
                                     },
                                     {
                                         icon: 'add_box',
                                         tooltip: "Add New",
                                         position: "toolbar",
-                                        onClick: () => navigate("/addpackage")
+                                        onClick: () => navigate("/create-resorts")
                                     }
                                 ]}
                                 options={{
@@ -112,4 +104,4 @@ const Packages = () => {
         </div>
     );
 };
-export default Packages;
+export default ShowResort;

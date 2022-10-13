@@ -11,6 +11,7 @@ Router.post(
   "/insert",
   upload.single("image"),
   async (req, res) => {
+    console.log(req.body);
     try {
       // Upload image to cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
@@ -28,7 +29,7 @@ Router.post(
     } catch (error) {
       res
         .status(400)
-        .send("Error while uploading Book details. Try again later.");
+        .send("Error while uploading details. Try again later.");
     }
   },
   (error, req, res, next) => {
@@ -84,5 +85,27 @@ Router.delete("/:id", async (req, res) => {
     res.status(400).json({ msg: e.message, success: false });
   }
 });
+
+//Delete
+Router.get("/:id", async (req, res) => {
+  try {
+    // Find liveboard by id
+    const liveboard = await LiveBoard.findById(req.params.id);
+    if (liveboard < 1) {
+      return res.status(402).json({
+          message: "No liveboard data found",
+      });
+  } else {
+      res.status(200).json({
+          success: true,
+          code: 200,
+          data: liveboard,
+      });
+  }
+  } catch (e) {
+    res.status(400).json({ msg: e.message, success: false });
+  }
+});
+
 
 export default Router;
