@@ -12,7 +12,12 @@ import ShowResort from "./pages/showResorts";
 import UpdateResort from "./components/updateResort";
 import UpdatePackage from "./components/UpdatePackage";
 import AdminDash from "./layouts/AdminDash";
-import { PackageDetails } from "./components/PackageDetails";
+import {PackageDetails}  from "./components/PackageDetails";
+import LiveBoardCusView from "./pages/LiveaboardCusView";
+import AddLBbookings from "./pages/AddLBbookings";
+import LiveBoardView from "./pages/LiveBoard";
+import AddLiveBoard from "./pages/AddLiveBoard";
+import AdminBooking from "./pages/Bookings";
 
 function App() {
   return (
@@ -31,6 +36,11 @@ function App() {
             <Route path="/packagedetails" element={<PackageDetails />} />
             <Route path="/resorts" element={<ShowResort />} />
             <Route path="/create-resorts" element={<CreateResort />} />
+            <Route path="/liveBoardView" element={<LiveBoardView />} />
+            <Route path="/addliveboard" element={<AddLiveBoard />} />
+            <Route path="/bookingsadmin" element={<AdminBooking />} />
+            <Route path="/LiveBoardCusView" element={<LiveBoardCusView/>} />
+            <Route path="/AddLBbookings/:id" exact={false} element={<AddLBbookings/>}/>
             <Route
               path="/update-resorts/:id"
               exact={false}
