@@ -52,14 +52,17 @@ export default function SignIn() {
                 console.log(res.data);
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("user", JSON.stringify(res.data));
+                localStorage.setItem("role", res.data.status);
 
                 console.log(res.data.status);
                 if (res.status === 200) {
 
                     if (res.data.status === 'Admin') {
-                        navigate("/admindashboard");
+                        navigate("/admindashboard", { replace: true });
+
+
                     } else {
-                        navigate("/");
+                        navigate("/", { replace: true });
                     }
                 }
                 if (res.status === 401) {
