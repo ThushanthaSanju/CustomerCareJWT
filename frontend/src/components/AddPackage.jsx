@@ -1,3 +1,6 @@
+
+
+
 import React, { useState, useEffect } from 'react';
 //import * as FaIcons from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
@@ -7,24 +10,42 @@ import { useNavigate } from "react-router-dom";
 
 const CreateResort = () => {
     //form data
-    const [data, setData] = useState({ name: '', description: '', price: 0 });
+    const [data, setData] = useState({ name: '', description: '', price: 0, image: [] });
+    const [file, setFile] = useState("")
+    const [uploadedimage, setuploadedimage] = useState("")
     const [btnDisable, setBtnDisable] = useState(false);
     const navigate = useNavigate();
 
-    /*const onChangePicture = (e) => {
-        console.log('picture:',images);
-        setImages(e.target.files[0]);
-    };*/
+
+    function previewFile(file) {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+
+        reader.onloadend = () => {
+            console.log(uploadedimage);
+            setuploadedimage(reader.result)
+        }
+    }
+
+    const onChangePicture = (e) => {
+        console.log('picture:', e.target.files[0]);
+        setData({ ...data, image: e.target.value })
+        const file = e.target.files[0]
+        setFile(file);
+        previewFile(file)
+    };
 
     const onSubmitClick = async (e) => {
         e.preventDefault();
         setBtnDisable(true);
-
+        console.log("dataaaa", data)
         try {
             if (validateForm()) {
                 PackageController.PackageCreate(data).then((res) => {
+
                     console.log(res);
                     if (res.success) {
+
                         toast.success("Package created Success")
                     } else {
                         toast.error("Creation Failed")
@@ -45,7 +66,7 @@ const CreateResort = () => {
     //form clearance
     const clearForm = () => {
         setBtnDisable(false);
-        setData({ name: '', description: '', price: 0 })
+        setData({ name: '', description: '', price: 0, image: [] })
     }
 
     //validation
@@ -63,8 +84,10 @@ const CreateResort = () => {
             toast.error("Please enter the price");
             return false;
         }
-
-
+        else if (!data.image) {
+            toast.error("Please upload image");
+            return false;
+        }
 
         return true;
     }
@@ -98,6 +121,15 @@ const CreateResort = () => {
                                         <input type="number" className='form-control' id="price"
                                             value={data.price} onChange={(e) => { setData({ ...data, price: e.target.value }) }} />
                                     </div>
+                                    {/* <div className='my-3'>
+                                        <label htmlFor='price' className='form-label'>Price</label>
+
+                                        <input type="file" className='form-control' id="image"
+                                            value={data.image} onChange={(e) => { onChangePicture(e) }} />
+                                    </div>
+                                    <div className='my-3'>
+                                        {uploadedimage === "" ? <></> : <img src={uploadedimage} alt="" height="300px" width="450px" />}
+                                    </div> */}
 
 
                                     <center>
