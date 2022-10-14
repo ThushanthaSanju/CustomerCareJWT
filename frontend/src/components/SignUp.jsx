@@ -3,8 +3,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -72,34 +72,62 @@ export default function SignUp() {
 
         event.preventDefault();
 
-        const user = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            password: password,
-            status: status,
+        if (validateForm()) {
+            const user = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+                status: status,
 
-        };
-        axios
-            .post(`http://localhost:5000/user/register`, user, {
+            };
+            axios
+                .post(`http://localhost:5000/user/register`, user, {
 
-            })
-            .then((res) => {
-                console.log(res.data);
+                })
+                .then((res) => {
+                    console.log(res.data);
 
-                if (res.status === 201) {
-                    navigate("/signin")
-                    console.log("user created");
-                } else {
-                    console.log("fail");
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+                    if (res.status === 201) {
+                        toast.success("User added")
+                        navigate("/signin")
+                        console.log("user created");
+                    } else {
+                        toast.success("User not created")
+                        console.log("fail");
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+
 
     };
+    //validation
+    const validateForm = () => {
 
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        if (!firstName) {
+            toast.error("Please enter the name");
+            return false;
+        }
+        else if (!lastName) {
+            toast.error("Please enter the name");
+            return false;
+        }
+        else if (!email && !regex.test(email)) {
+            toast.error("Please enter the no of email");
+            return false;
+        }
+        else if (!password) {
+            toast.error("Please enter the star password")
+            return false;
+        }
+
+
+        return true;
+    }
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -189,12 +217,12 @@ export default function SignUp() {
                                 </FormControl>
                             </Grid>
 
-                            <Grid item xs={12}>
+                            {/* <Grid item xs={12}>
                                 <FormControlLabel
                                     control={<Checkbox value="allowExtraEmails" color="primary" />}
                                     label="I want to receive inspiration, marketing promotions and updates via email."
                                 />
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                         <Button
                             type="submit"
@@ -211,6 +239,7 @@ export default function SignUp() {
                                 </Link>
                             </Grid>
                         </Grid>
+                        <ToastContainer />
                     </Box>
                 </Box>
 

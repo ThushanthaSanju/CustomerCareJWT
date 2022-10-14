@@ -83,6 +83,7 @@ export const createPackage = async (req, res) => {
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
+      phone: req.body.phone,
       user: req.user.id,
       // image: result.secure_url,
       // cloudinary_id: result.public_id,

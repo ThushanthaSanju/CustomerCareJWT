@@ -74,7 +74,7 @@ const Packages = () => {
 
                                     { title: 'Name', field: 'name' },
                                     { title: 'Description', field: 'description' },
-                                    { title: 'Price', field: 'price' },
+                                    { title: 'Price', field: 'price' }, { title: 'Phone Number', field: 'phone' },
 
                                 ]}
                                 data={data}
