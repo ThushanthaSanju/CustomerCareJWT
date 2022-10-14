@@ -57,7 +57,7 @@ const Header = () => {
                                 {(index === 1 || index === 2 || index === 3) ? <></> : <> <Tab label="Live Boards" href="/liveBoardView"  />
                                     <Tab label="Diving Resorts" href="/resorts" />
                                     <Tab label="Diving Packages" href="/packages" />
-                                    <Tab label="Snorkeling" href="/LiveBoardCusView" /></>}
+                                    <Tab label="Snorkeling" /></>}
 
 
                             </>

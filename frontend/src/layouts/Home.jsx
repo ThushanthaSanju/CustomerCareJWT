@@ -36,6 +36,27 @@ const Home = () => {
                             </Typography></Box>
                         <Button style={{ backgroundColor: '#03a1fc', color: '#FFFFFF' }} href="/packagedetails"> Package Details</Button>
                     </Box>
+                    
+                </Container>
+                <Container fixed>
+
+                    <Box m={1}
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        sx={{ bgcolor: '#f2f2f2', height: '100%' }} >
+                        <Box pl={20} pt={8} pb={8} sx={{ width: '80%' }}>
+                            <Typography variant="h6" gutterBottom >
+                                2) Liveaboards
+                            </Typography>
+                            <Typography variant="subtitle1" gutterBottom>
+                            Liveaboard diving is an experience unlike any other.
+                             </Typography>  <Typography variant="h6" gutterBottom >
+                                Click the Button to Explore the Liveaboards
+                            </Typography></Box>
+                        <Button style={{ backgroundColor: '#03a1fc', color: '#FFFFFF' }}  href="/LiveBoardCusView"> Liveaboards</Button>
+                    </Box>
+                    
                 </Container>
             </React.Fragment>
 
