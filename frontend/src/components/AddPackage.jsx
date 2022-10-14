@@ -66,7 +66,7 @@ const CreateResort = () => {
     //form clearance
     const clearForm = () => {
         setBtnDisable(false);
-        setData({ name: '', description: '', price: 0, image: [] })
+        setData({ name: '', description: '', price: 0, phone: '' })
     }
 
     //validation
@@ -84,7 +84,7 @@ const CreateResort = () => {
             toast.error("Please enter the price");
             return false;
         }
-        else if (!data.image) {
+        else if (!data.phone) {
             toast.error("Please upload image");
             return false;
         }
@@ -120,6 +120,11 @@ const CreateResort = () => {
                                         <label htmlFor='price' className='form-label'>Price</label>
                                         <input type="number" className='form-control' id="price"
                                             value={data.price} onChange={(e) => { setData({ ...data, price: e.target.value }) }} />
+                                    </div>
+                                    <div className='my-3'>
+                                        <label htmlFor='phone' className='form-label'>Phone Number</label>
+                                        <input type="number" className='form-control' id="price"
+                                            value={data.phone} onChange={(e) => { setData({ ...data, phone: e.target.value }) }} />
                                     </div>
                                     {/* <div className='my-3'>
                                         <label htmlFor='price' className='form-label'>Price</label>

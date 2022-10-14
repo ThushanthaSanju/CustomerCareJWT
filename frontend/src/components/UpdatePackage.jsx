@@ -63,7 +63,7 @@ const UpdateResort = (props) => {
 
     const clearForm = () => {
         setBtnDisable(false);
-        setData({ name: '', description: '', price: 0 })
+        setData({ name: '', description: '', price: 0, phone: '' })
     }
 
     return (
@@ -94,6 +94,11 @@ const UpdateResort = (props) => {
                                         <label htmlFor='price' className='form-label'>Price</label>
                                         <input type="number" className='form-control' id="price"
                                             value={data.price} onChange={(e) => { setData({ ...data, price: e.target.value }) }} />
+                                    </div>
+                                    <div className='my-3'>
+                                        <label htmlFor='phone' className='form-label'>Phone Number</label>
+                                        <input type="number" className='form-control' id="phone"
+                                            value={data.phone} onChange={(e) => { setData({ ...data, phone: e.target.value }) }} />
                                     </div>
 
 
