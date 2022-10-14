@@ -54,7 +54,7 @@ const Header = () => {
 
                         {role === "User" ? <></> :
                             <>
-                                {(index === 1 || index === 2 || index === 3) ? <></> : <> <Tab label="Live Boards" />
+                                {(index === 1 || index === 2 || index === 3) ? <></> : <> <Tab label="Live Boards" href="/liveBoardView"  />
                                     <Tab label="Diving Resorts" href="/resorts" />
                                     <Tab label="Diving Packages" href="/packages" />
                                     <Tab label="Snorkeling" /></>}
