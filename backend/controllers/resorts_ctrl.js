@@ -1,25 +1,36 @@
-import Resorts from "../models/resorts.js";
+
+// const Resorts = require('../models/resorts.js')
+import Resorts from '../models/resorts.js';
 
 //create resorts
 export const createResorts = async (req, res) => {
     try {
-        const lrqDetails = req.body;
-        const newResorts = new Resorts(lrqDetails);
+        const lrqDetails = req;
+        let images = [];
+        for (var i = 0; i < req.files.length; i++) {
+            images.push( req.files[i].path )
+        }
+        const newResorts = new Resorts({
+            name: req.body.name,
+            location: req.body.location,
+            rooms: parseInt(req.body.rooms),
+            stars: parseInt(req.body.stars),
+            description: req.body.description,
+            images: images.map(i => i.replace("\\", "/"))
+        });
 
         await newResorts.save(function (err) {
             if (err) {
                 console.log(err);
-                res.status(600).json({
-                    message: "Error happended when creating resorts.",
+                return res.status(500).json({
+                    message: "Error when creating resort.",
                     error: err
                 });
-                return
             }
-            res.status(201).json({
-                message: "Resorts successfully registred!",
+            return res.status(201).json({
+                message: "Resort successfully registred!",
                 success: true
             });
-            return
         });
     } catch (err) {
         console.log(err);

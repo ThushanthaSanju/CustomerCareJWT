@@ -7,36 +7,26 @@ import { useParams } from "react-router-dom";
 import Config from "./Config";
 
 const api = {
-    resortcreate: "/resorts/create",
-    resortgetall: "/resorts/getall",
-    resortgetone: "/resorts/getone",
-    resortdelete: "/resorts/delete",
-    resortupdate: "/resorts/update",
+    reservationcreate: "/reservations/create",
+    reservationgetall: "/reservations/getall",
+    reservationgetone: "/reservations/getone",
+    reservationdelete: "/reservations/delete",
+    reservationupdate: "/reservations/update",
 };
 
 
 
-class ResortCtrl {
+class reservationCtrl {
     api;
 
-    async ResortCreate(files, data) {
+    async reservationCreate(data) {
         console.log(data);
-        console.log(files);
 
-        let formData = new FormData();
-
-        formData.set("name", data?.name);
-        formData.set("description", data?.description);
-        formData.set("location", data?.location);
-        formData.set("rooms", data?.rooms);
-        formData.set("stars", data?.stars);
-
-        for (let i = 0; i < files.length; i++) {
-            formData.append("photos" , files[i]);    
-        }
-
+        // const config = {
+        //     headers: { Authorization: `${localStorage.getItem('usertoken')}` }
+        // };
         return new Promise((resolve, reject) => {
-            axios.post(`${Config.host}${Config.port}${api.resortcreate}`, formData)
+            axios.post(`${Config.host}${Config.port}${api.reservationcreate}`, data)
                 .then((Response) => {
                     resolve(Response.data)
                 })
@@ -46,12 +36,12 @@ class ResortCtrl {
         })
     }
 
-    async ResortGet(params) {
+    async reservationGet(params) {
         // const config = {
         //     headers: { Authorization: `${localStorage.getItem('usertoken')}` }
         // };
         return new Promise((resolve, reject) => {
-            return axios.get(`${Config.host}${Config.port}${api.resortgetall}`)
+            return axios.get(`${Config.host}${Config.port}${api.reservationgetall}`)
                 .then(result => {
                     if (result.status === 200) {
                         resolve(result.data)
@@ -65,12 +55,12 @@ class ResortCtrl {
         })
     }
 
-    async ResortGetOne(params) {
+    async reservationGetOne(params) {
         // const config = {
         //     headers: { Authorization: `${localStorage.getItem('usertoken')}` }
         // };
         return new Promise((resolve, reject) => {
-            return axios.get(`${Config.host}${Config.port}${api.resortgetone}/${params}`,)
+            return axios.get(`${Config.host}${Config.port}${api.reservationgetone}/${params}`,)
                 .then(result => {
                     if (result.status === 200) {
                         resolve(result.data)
@@ -84,12 +74,12 @@ class ResortCtrl {
         })
     }
 
-   async ResortUpdate(id,data) {
+   async reservationUpdate(id,data) {
          const config = {
              headers: { Authorization: `${localStorage.getItem('usertoken')}` }
          };
         return new Promise((resolve, reject) => {
-            return axios.patch(`${Config.host}${Config.port}${api.resortupdate}/${id}`,data)
+            return axios.patch(`${Config.host}${Config.port}${api.reservationupdate}/${id}`,data)
                 .then(result => {
                     if (result.status === 200) {
                         resolve(result.data)
@@ -103,12 +93,12 @@ class ResortCtrl {
         })
     }
 
-    async ResortDelete(params) {
+    async reservationDelete(params) {
         // const config = {
         //     headers: { Authorization: `${localStorage.getItem('usertoken')}` }
         // };
         return new Promise((resolve, reject) => {
-            return axios.delete(`${Config.host}${Config.port}${api.resortdelete}/${params}`)
+            return axios.delete(`${Config.host}${Config.port}${api.reservationdelete}/${params}`)
                 .then(result => {
                     if (result.status === 200) {
                         resolve(result.data)
@@ -123,4 +113,4 @@ class ResortCtrl {
     }
 
 }
-export default new ResortCtrl();
+export default new reservationCtrl();

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import ResortCtrl from "../controllers/resorts_ctrl";
 
-const ShowResort = () => {
+function ShowResort() {
 
     const [data, setData] = useState([]);
     const navigate = useNavigate();
@@ -104,4 +104,5 @@ const ShowResort = () => {
         </div>
     );
 };
+
 export default ShowResort;

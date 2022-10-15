@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
-//import * as FaIcons from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from 'react';
+import * as FaIcons from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ResortCtrl from "../controllers/resorts_ctrl";
-import { useNavigate } from "react-router-dom";
+import { renderMatches, useNavigate } from "react-router-dom";
+
+import { FilePond, File, registerPlugin } from 'react-filepond'
+import "filepond/dist/filepond.min.css";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 
 const CreateResort = () => {
     //form data
-    const [data, setData] = useState({ name: '', location: '', rooms: 0, stars: 0, description: '', images: [] });
+    const [data, setData] = useState({ name: '', location: '', rooms: 0, stars: 0, description: '', files: [] });
     const [btnDisable, setBtnDisable] = useState(false);
     const navigate = useNavigate();
 
@@ -18,24 +22,21 @@ const CreateResort = () => {
 
     const onSubmitClick = async (e) => {
         e.preventDefault();
-        setBtnDisable(true);
+        // setBtnDisable(true);
 
         try {
-            if (validateForm()) {
-                ResortCtrl.ResortCreate(data).then((res) => {
-                    console.log(res);
-                    if (res.success) {
-                        toast.success("Registration Success")
-                    } else {
-                        toast.error("Registration Failed")
-                    }
-                    clearForm()
-                    setBtnDisable(false);
-                }).catch((err) => {
-                    console.log(err);
-                    setBtnDisable(false);
-                })
-            }
+            ResortCtrl.ResortCreate(data.files,data).then((res) => {
+                if (res.success) {
+                    toast.success("Registration Success")
+                } else {
+                    toast.error("Registration Failed")
+                }
+                clearForm()
+                setBtnDisable(false);
+            }).catch((err) => {
+                console.log(err);
+                setBtnDisable(false);
+            })
         } catch (error) {
             setBtnDisable(false);
 
@@ -45,7 +46,7 @@ const CreateResort = () => {
     //form clearance
     const clearForm = () => {
         setBtnDisable(false);
-        setData({ name: '', location: '', rooms: 0, stars: 0, description: '', images: [] })
+        setData({ name: '', location: '', rooms: 0, stars: 0, description: '', files: [] })
     }
 
     //validation
@@ -71,13 +72,15 @@ const CreateResort = () => {
             toast.error("Please enter the description");
             return false;
         }
-        else if (!data.images) {
+        else if (!data.files) {
             toast.error("Please enter the images");
             return false;
         }
 
         return true;
     }
+
+    
 
     return (
         <div className=''>
@@ -92,7 +95,7 @@ const CreateResort = () => {
                     <div className='col-5 mx-auto'>
                         <div className='card mx-3 my-3 shadow-sm rounded'>
                             <div className='px-4'>
-                                <form>
+                                <form action="/" method="POST" encType="multipart/form-data">
                                     <div className='my-3'>
                                         <label htmlFor='name' className='form-label'>Name</label>
                                         <input type="text" className='form-control' id="name"
@@ -118,12 +121,25 @@ const CreateResort = () => {
                                         <input type="text" className='form-control' id="description"
                                             value={data.description} onChange={(e) => { setData({ ...data, description: e.target.value }) }} />
                                     </div>
+
+                                    <div className='my-3'>
+                                    <label htmlFor='files' className='form-label'>Image upload</label>
+                                    <FilePond
+                                        files={data.files}
+                                        allowMultiple={true}
+                                        onupdatefiles={ (fileItems) => {
+                                            setData({...data, files : fileItems.map((i) => i.file) })
+                                        }}>
+                                    </FilePond>
+                                            </div>
+
                                     <center>
                                         <button type='submit' disabled={btnDisable} className='btn btn-primary my-3' onClick={(e) => { onSubmitClick(e) }}>CREATE</button>
                                         <button className='btn btn-secondary my-3 mx-3' onClick={(e) => { navigate("/resorts"); }}>Show List</button>
                                     </center>
                                     <ToastContainer />
                                 </form>
+                                       
                             </div>
                         </div>
                     </div>
@@ -132,5 +148,6 @@ const CreateResort = () => {
 
         </div>
     );
+    
 };
 export default CreateResort;

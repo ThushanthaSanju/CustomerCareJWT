@@ -392,7 +392,6 @@ console.log(event.target.value);
   name='functiontype'
   select 
   onChange={handleChange}
-  select
 >
   <MenuItem value="birthday">
     Birthday Party
@@ -414,7 +413,6 @@ console.log(event.target.value);
               name="participants"
               autoComplete="participants"
               autoFocus
-              type="Number"
               value={state.participants || ""}
               onChange={handleChange}
             />

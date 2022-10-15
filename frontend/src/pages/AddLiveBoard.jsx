@@ -456,7 +456,7 @@ const AddLiveBoard = (props) => {
               <Button
                 id="btnBack"
                 type="button"
-                // href="/book"
+                href="/liveBoardView"
                 onClick={history.goBack}
                 fullWidth
                 variant="contained"

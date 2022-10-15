@@ -8,8 +8,12 @@ import Packages from "./pages/Packages";
 import AddPackage from "./components/AddPackage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CreateResort from "./components/createResort";
-import ShowResort from "./pages/showResorts";
+// import showR from "./pages/showResorts";
 import UpdateResort from "./components/updateResort";
+import ViewAllResorts from "./pages/viewAllResorts";
+import ReservationForm from "./components/reservationForm";
+import ViewResort from "./pages/viewResort";
+import ResortView from "./pages/resortView";
 import UpdatePackage from "./components/UpdatePackage";
 import AdminDash from "./layouts/AdminDash";
 import {PackageDetails}  from "./components/PackageDetails";
@@ -18,6 +22,7 @@ import AddLBbookings from "./pages/AddLBbookings";
 import LiveBoardView from "./pages/LiveBoard";
 import AddLiveBoard from "./pages/AddLiveBoard";
 import AdminBooking from "./pages/Bookings";
+import ShowResorts from "./pages/showResorts"
 
 function App() {
   return (
@@ -34,7 +39,7 @@ function App() {
             <Route path="/addpackage" element={<AddPackage />} />
             <Route path="/admindashboard" element={<AdminDash />} />
             <Route path="/packagedetails" element={<PackageDetails />} />
-            <Route path="/resorts" element={<ShowResort />} />
+            <Route path="/resorts" element={<ShowResorts />} />
             <Route path="/create-resorts" element={<CreateResort />} />
             <Route path="/liveBoardView" element={<LiveBoardView />} />
             <Route path="/addliveboard" element={<AddLiveBoard />} />
@@ -46,6 +51,11 @@ function App() {
               exact={false}
               element={<UpdateResort />}
             />
+            <Route path="/view-all-resorts" exact element={<ViewAllResorts />} />
+            <Route path="/resort-view/:id" exact element={<ResortView />} />
+
+            <Route path="/book-reservation/:id" exact={false} element={<ReservationForm />} />
+            <Route path="/view-resort/:id" exact={false} element={<ViewResort />}/>
             <Route
               path="/packages/updatepackage/:id"
               exact={false}

@@ -58,6 +58,28 @@ const Home = () => {
                     </Box>
                     
                 </Container>
+
+                <Container fixed>
+
+                    <Box m={1}
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        sx={{ bgcolor: '#f2f2f2', height: '100%' }} >
+                        <Box pl={20} pt={8} pb={8} sx={{ width: '80%' }}>
+                            <Typography variant="h6" gutterBottom >
+                                3) Diving Resorts
+                            </Typography>
+                            <Typography variant="subtitle1" gutterBottom>
+                            Diving resort is live in luxury.
+                             </Typography>  <Typography variant="h6" gutterBottom >
+                                Click the Button to view the resorts.
+                            </Typography></Box>
+                        <Button style={{ backgroundColor: '#03a1fc', color: '#FFFFFF' }}  href="/view-all-resorts"> Resorts</Button>
+                    </Box>
+                    
+                </Container>
+
             </React.Fragment>
 
 
