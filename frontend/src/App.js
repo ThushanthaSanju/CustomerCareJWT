@@ -23,6 +23,12 @@ import LiveBoardView from "./pages/LiveBoard";
 import AddLiveBoard from "./pages/AddLiveBoard";
 import AdminBooking from "./pages/Bookings";
 import ShowResorts from "./pages/showResorts"
+import ProductView from "./pages/products/ProductView";
+import AddProduct from "./pages/products/AddProduct";
+import PCustomerView from "./pages/products/CustomerProduct";
+import AddCart from "./pages/products/AddCart";
+import ProductList from "./pages/products/ProductList";
+import AddLiveBoardTwo from "./pages/products/AddCart"
 
 function App() {
   return (
@@ -46,6 +52,12 @@ function App() {
             <Route path="/bookingsadmin" element={<AdminBooking />} />
             <Route path="/LiveBoardCusView" element={<LiveBoardCusView/>} />
             <Route path="/AddLBbookings/:id" exact={false} element={<AddLBbookings/>}/>
+            <Route path="/ProductView" element={<ProductView />} />
+            <Route path="/AddProduct" element={<AddProduct />} />
+            <Route path="/ProductList" element={<ProductList />} />
+            <Route path="/PCustomerView" element={<PCustomerView />} />
+            <Route path="/AddCart/:id" exact={false} element={<AddCart />}/>
+            <Route path="/AddLiveBoardTwo" element={<AddLiveBoardTwo />} />
             <Route
               path="/update-resorts/:id"
               exact={false}
