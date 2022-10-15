@@ -131,7 +131,7 @@ const AddLiveBoard = (props) => {
     requirements: "",
     participants: "",
     errors: {
-        date: "",
+      date: "",
       email: "",
       price: "",
       requirements: "",
@@ -170,29 +170,29 @@ const AddLiveBoard = (props) => {
 
   useEffect(() => {
     loadData()
-}, []);
+  }, []);
 
   const loadData = () => {
     let urldata = window.location.pathname.split("/");
     let shipid = urldata[urldata.length - 1];
     console.log(shipid);
-    api.get("/lBoard/" + shipid,{
-        })
-        .then((res) => {
-          setShipData(res.data.data)
-          console.log(res.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-}
+    api.get("/lBoard/" + shipid, {
+    })
+      .then((res) => {
+        setShipData(res.data.data)
+        console.log(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   //Insert data
   const handleOnSubmit = async (event) => {
     event.preventDefault();
     setOpen(true);
     try {
-      const { date, hours, functiontype, price, participants,contact,requirements,email } = state;
+      const { date, hours, functiontype, price, participants, contact, requirements, email } = state;
       if (validateForm(state.errors)) {
         console.info("Valid Form");
         if (
@@ -203,26 +203,27 @@ const AddLiveBoard = (props) => {
           // participants.trim() !== ""
           true
         ) {
-            console.log(functiontype);
-            let data = {
-            "date":date,
-            "hours":hours,
-            "amount":shipData.price * state.hours,
-            "contact":contact,
-            "lbName":shipData.fname,
-            "spRequirement":requirements,
-            "count":participants,
-            "fType":functiontype,
-            "email":email,
-            "facilities":shipData.facilities}
+          console.log(functiontype);
+          let data = {
+            "date": date,
+            "hours": hours,
+            "amount": shipData.price * state.hours,
+            "contact": contact,
+            "lbName": shipData.fname,
+            "spRequirement": requirements,
+            "count": participants,
+            "fType": functiontype,
+            "email": email,
+            "facilities": shipData.facilities
+          }
 
-            setErrorMsg("");
-            let postData = await axios.post(`${API_URL}/lbBookings/addlbBookings`, data, {
-            });
-            console.log(postData);
-            setSuccessMsg("Booking is Done!");
-            // setOpenSucc(true);
-            // props.history.push('/home');
+          setErrorMsg("");
+          let postData = await axios.post(`${API_URL}/lbBookings/addlbBookings`, data, {
+          });
+          console.log(postData);
+          setSuccessMsg("Booking is Done!");
+          // setOpenSucc(true);
+          // props.history.push('/home');
         } else {
           setErrorMsg("Please enter all the field values.");
           // setOpenErr(true);
@@ -252,24 +253,24 @@ const AddLiveBoard = (props) => {
     event.preventDefault();
     const { name, value } = event.target;
     let errors = state.errors;
-console.log(event.target.name);
-console.log(event.target.value);
+    console.log(event.target.name);
+    console.log(event.target.value);
     switch (name) {
       case "date":
         errors.date =
-          value.length < 2 ? "Name must be 2 characters long!" : "";
+          value.length < 2 ? "Enter Valid Date" : "";
         break;
       case "email":
         errors.email =
-        (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) ? "" : "Enter a Valid Email";
+          (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) ? "" : "Enter a Valid Email";
         break;
       case "requirements":
         errors.requirements =
-          value.length < 4 ? "Publisher must be 4 characters long!" : "";
+          value.length < 4 ? "Must be 4 characters long!" : "";
         break;
       case "price":
         errors.price =
-          value.length < 3 ? "Rack Number must be 3 characters long!" : "";
+          value.length < 3 ? "Must be 3 characters long!" : "";
         break;
       default:
         break;
@@ -302,7 +303,7 @@ console.log(event.target.value);
             Add Booking to {shipData.date}
           </Typography>
           <div className='center'>
-            <img src={shipData.image} width={480} className='m-2' style={{borderRadius:'20px'}}/>
+            <img src={shipData.image} width={480} className='m-2' style={{ borderRadius: '20px' }} />
           </div>
           <Typography component="h1" variant="h5">
             Total Price : ${shipData.price * state.hours}
@@ -381,25 +382,25 @@ console.log(event.target.value);
               value={state.hours || ""}
               onChange={handleChange}
             />
-            
-            
+
+
             <TextField
-  labelId="functiontype"
-  id="functiontype"
-  value={state.functiontype || ""}
-  label="Function Type"
-  fullWidth
-  name='functiontype'
-  select 
-  onChange={handleChange}
->
-  <MenuItem value="birthday">
-    Birthday Party
-  </MenuItem>
-  <MenuItem value="annivesary">
-    Annivesary
-  </MenuItem>
-</TextField>
+              labelId="functiontype"
+              id="functiontype"
+              value={state.functiontype || ""}
+              label="Function Type"
+              fullWidth
+              name='functiontype'
+              select
+              onChange={handleChange}
+            >
+              <MenuItem value="birthday">
+                Birthday Party
+              </MenuItem>
+              <MenuItem value="annivesary">
+                Annivesary
+              </MenuItem>
+            </TextField>
 
             <TextField
               type="number"
@@ -417,7 +418,7 @@ console.log(event.target.value);
               onChange={handleChange}
             />
 
-<TextField
+            <TextField
               variant="outlined"
               margin="normal"
               InputProps={{ inputProps: { min: 0 } }}
@@ -433,7 +434,7 @@ console.log(event.target.value);
               onChange={handleChange}
             />
 
-<TextField
+            <TextField
               variant="outlined"
               margin="normal"
               required
@@ -448,10 +449,10 @@ console.log(event.target.value);
               onChange={handleChange}
             />
 
-{errors.email.length > 0 && (
+            {errors.email.length > 0 && (
               <span className="error">{errors.email}</span>
             )}
-<TextField
+            <TextField
               variant="outlined"
               margin="normal"
               fullWidth

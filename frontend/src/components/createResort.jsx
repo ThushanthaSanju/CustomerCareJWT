@@ -25,7 +25,7 @@ const CreateResort = () => {
         // setBtnDisable(true);
 
         try {
-            ResortCtrl.ResortCreate(data.files,data).then((res) => {
+            ResortCtrl.ResortCreate(data.files, data).then((res) => {
                 if (res.success) {
                     toast.success("Registration Success")
                 } else {
@@ -80,7 +80,7 @@ const CreateResort = () => {
         return true;
     }
 
-    
+
 
     return (
         <div className=''>
@@ -99,39 +99,39 @@ const CreateResort = () => {
                                     <div className='my-3'>
                                         <label htmlFor='name' className='form-label'>Name</label>
                                         <input type="text" className='form-control' id="name"
-                                            value={data.name} onChange={(e) => { setData({ ...data, name: e.target.value }) }} />
+                                            value={data.name} onChange={(e) => { setData({ ...data, name: e.target.value }) }} required />
                                     </div>
                                     <div className='my-3'>
                                         <label htmlFor='location' className='form-label'>Location</label>
                                         <input type="text" className='form-control' id="location"
-                                            value={data.location} onChange={(e) => { setData({ ...data, location: e.target.value }) }} />
+                                            value={data.location} onChange={(e) => { setData({ ...data, location: e.target.value }) }} required />
                                     </div>
                                     <div className='my-3'>
                                         <label htmlFor='rooms' className='form-label'>No of Rooms</label>
                                         <input type="number" className='form-control' id="rooms"
-                                            value={data.rooms} onChange={(e) => { setData({ ...data, rooms: e.target.value }) }} />
+                                            value={data.rooms} onChange={(e) => { setData({ ...data, rooms: e.target.value }) }} required />
                                     </div>
                                     <div className='my-3'>
                                         <label htmlFor='stars' className='form-label'>Stars</label>
                                         <input type="number" className='form-control' id="stars"
-                                            value={data.stars} onChange={(e) => { setData({ ...data, stars: e.target.value }) }} />
+                                            value={data.stars} onChange={(e) => { setData({ ...data, stars: e.target.value }) }} required />
                                     </div>
                                     <div className='my-3'>
                                         <label htmlFor='description' className='form-label'>Description</label>
                                         <input type="text" className='form-control' id="description"
-                                            value={data.description} onChange={(e) => { setData({ ...data, description: e.target.value }) }} />
+                                            value={data.description} onChange={(e) => { setData({ ...data, description: e.target.value }) }} required />
                                     </div>
 
                                     <div className='my-3'>
-                                    <label htmlFor='files' className='form-label'>Image upload</label>
-                                    <FilePond
-                                        files={data.files}
-                                        allowMultiple={true}
-                                        onupdatefiles={ (fileItems) => {
-                                            setData({...data, files : fileItems.map((i) => i.file) })
-                                        }}>
-                                    </FilePond>
-                                            </div>
+                                        <label htmlFor='files' className='form-label'>Image upload</label>
+                                        <FilePond
+                                            files={data.files}
+                                            allowMultiple={true}
+                                            onupdatefiles={(fileItems) => {
+                                                setData({ ...data, files: fileItems.map((i) => i.file) })
+                                            }}>
+                                        </FilePond>
+                                    </div>
 
                                     <center>
                                         <button type='submit' disabled={btnDisable} className='btn btn-primary my-3' onClick={(e) => { onSubmitClick(e) }}>CREATE</button>
@@ -139,7 +139,7 @@ const CreateResort = () => {
                                     </center>
                                     <ToastContainer />
                                 </form>
-                                       
+
                             </div>
                         </div>
                     </div>
@@ -148,6 +148,6 @@ const CreateResort = () => {
 
         </div>
     );
-    
+
 };
 export default CreateResort;

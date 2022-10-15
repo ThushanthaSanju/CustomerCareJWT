@@ -33,7 +33,7 @@ import Draggable from "react-draggable";
  * @param {*} props
  * @returns
  */
- function PaperComponent(props) {
+function PaperComponent(props) {
   return (
     <Draggable
       handle="#draggable-dialog-name"
@@ -166,29 +166,29 @@ const AddCart = (props) => {
 
   useEffect(() => {
     loadData()
-}, []);
+  }, []);
 
   const loadData = () => {
     let urldata = window.location.pathname.split("/");
     let shipid = urldata[urldata.length - 1];
     console.log(shipid);
-    api.get("/pCtrl/" + shipid,{
-        })
-        .then((res) => {
-          setShipData(res.data.data)
-          console.log(res.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-}
+    api.get("/pCtrl/" + shipid, {
+    })
+      .then((res) => {
+        setShipData(res.data.data)
+        console.log(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   //Insert data
   const handleOnSubmit = async (event) => {
     event.preventDefault();
     setOpen(true);
     try {
-      const { date, quntity, payType, price, contact,deliveryAdd,email } = state;
+      const { date, quntity, payType, price, contact, deliveryAdd, email } = state;
       if (validateForm(state.errors)) {
         console.info("Valid Form");
         if (
@@ -199,24 +199,25 @@ const AddCart = (props) => {
           // participants.trim() !== ""
           true
         ) {
-            console.log(payType);
-            let data = {
-            "date":date,
-            "quntity":quntity,
-            "productsPrice":shipData.price * state.quntity,
-            "contact":contact,
-            "pName":shipData.productName,
-            "deliveryAdd":deliveryAdd,
-            "payType":payType,
-            "email":email,}
+          console.log(payType);
+          let data = {
+            "date": date,
+            "quntity": quntity,
+            "productsPrice": shipData.price * state.quntity,
+            "contact": contact,
+            "pName": shipData.productName,
+            "deliveryAdd": deliveryAdd,
+            "payType": payType,
+            "email": email,
+          }
 
-            setErrorMsg("");
-            let postData = await axios.post(`${API_URL}/pCustomer/addpCustomers`, data, {
-            });
-            console.log(postData);
-            setSuccessMsg("Added to cart!");
-            // setOpenSucc(true);
-            // props.history.push('/home');
+          setErrorMsg("");
+          let postData = await axios.post(`${API_URL}/pCustomer/addpCustomers`, data, {
+          });
+          console.log(postData);
+          setSuccessMsg("Added to cart!");
+          // setOpenSucc(true);
+          // props.history.push('/home');
         } else {
           setErrorMsg("Please enter all the field values.");
           // setOpenErr(true);
@@ -246,8 +247,8 @@ const AddCart = (props) => {
     event.preventDefault();
     const { name, value } = event.target;
     let errors = state.errors;
-console.log(event.target.name);
-console.log(event.target.value);
+    console.log(event.target.name);
+    console.log(event.target.value);
     switch (name) {
       case "date":
         errors.date =
@@ -255,15 +256,15 @@ console.log(event.target.value);
         break;
       case "email":
         errors.email =
-        (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) ? "" : "Enter a Valid Email";
+          (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) ? "" : "Enter a Valid Email";
         break;
       case "deliveryAdd":
         errors.deliveryAdd =
-          value.length < 4 ? "Publisher must be 4 characters long!" : "";
+          value.length < 4 ? "Delivery address must be 4 characters long!" : "";
         break;
       case "price":
         errors.price =
-          value.length < 3 ? "Rack Number must be 3 characters long!" : "";
+          value.length < 3 ? "Price must be 3 characters long!" : "";
         break;
       default:
         break;
@@ -296,7 +297,7 @@ console.log(event.target.value);
             Add Product To Cart {shipData.date}
           </Typography>
           <div className='center'>
-            <img src={shipData.image} width={480} className='m-2' style={{borderRadius:'20px'}}/>
+            <img src={shipData.image} width={480} className='m-2' style={{ borderRadius: '20px' }} />
           </div>
           <Typography component="h1" variant="h5">
             Total Price : ${shipData.price * state.quntity}
@@ -371,8 +372,8 @@ console.log(event.target.value);
               value={state.quntity || ""}
               onChange={handleChange}
             />
-            
-            
+
+
             <TextField
               labelId="payType"
               id="payType"
@@ -380,16 +381,16 @@ console.log(event.target.value);
               label="Payment Type"
               fullWidth
               name='payType'
-              select 
+              select
               onChange={handleChange}
             >
-                  <MenuItem value="online">
-                      Online Payment
-                  </MenuItem>
-                  <MenuItem value="cash">
-                      Cash Payment
-                  </MenuItem>
-              </TextField>
+              <MenuItem value="online">
+                Online Payment
+              </MenuItem>
+              <MenuItem value="cash">
+                Cash Payment
+              </MenuItem>
+            </TextField>
 
             <TextField
               variant="outlined"
@@ -422,7 +423,7 @@ console.log(event.target.value);
               onChange={handleChange}
             />
 
-              {errors.email.length > 0 && (
+            {errors.email.length > 0 && (
               <span className="error">{errors.email}</span>
             )}
 
