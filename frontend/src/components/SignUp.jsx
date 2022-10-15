@@ -107,21 +107,32 @@ export default function SignUp() {
     //validation
     const validateForm = () => {
 
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        const passregex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+
         if (!firstName) {
-            toast.error("Please enter the name");
+            toast.error("Please enter the First Name");
             return false;
         }
         else if (!lastName) {
-            toast.error("Please enter the name");
+            toast.error("Please enter the Second Name");
             return false;
         }
-        else if (!email && !regex.test(email)) {
-            toast.error("Please enter the no of email");
+        else if (!email) {
+            toast.error("Please enter email");
+            return false;
+        }
+        else if (!regex.test(email)) {
+            console.log('sss');
+            toast.error("Please enter the valid email");
             return false;
         }
         else if (!password) {
-            toast.error("Please enter the star password")
+            toast.error("Please enter a password")
+            return false;
+        }
+        else if (!passregex.test(password)) {
+            toast.error("Please enter a valid password")
             return false;
         }
 
