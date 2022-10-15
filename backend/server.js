@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import subscribersRouter from "./routes/subscribers.js";
 import packagesRouter from "./routes/package.js";
 import productRouter from "./routes/productsRoutes.js";
+import productCtrlRouter from "./controllers/pController.js";
 import userRouter from "./routes/userRoutes.js";
 import liveBoardsRouter from "./routes/liveboardsRoutes.js";
 import LbBooking from "./routes/LbBookingsRoutes.js";
@@ -16,6 +17,7 @@ import packageBookingRoutes from "./routes/packageBooking.js";
 // import multer from "multer";
 import multer from "multer"
 // const multer = require("multer");
+import pCustomer from "./routes/pCustomerRoutes.js"
 
 // var bodyParser = require('body-parser');
 
@@ -49,6 +51,9 @@ app.use('/api/products/', productRouter);
 app.use('/liveboard', liveBoardsRouter);
 app.use('/lbBookings', LbBooking);
 app.use("/lBoard", lBoardRoute);
+app.use('/products', productRouter);
+app.use('/pCtrl', productCtrlRouter);
+app.use('/pCustomer', pCustomer);
 app.use("/liveboard", liveBoardsRouter);
 app.use("/lbBooings", LbBooking);
 app.use("/api/resorts", resortsRoutes);

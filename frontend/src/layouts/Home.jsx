@@ -80,6 +80,27 @@ const Home = () => {
                     
                 </Container>
 
+                <Container fixed>
+
+                    <Box m={1}
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        sx={{ bgcolor: '#f2f2f2', height: '100%' }} >
+                        <Box pl={20} pt={8} pb={8} sx={{ width: '80%' }}>
+                            <Typography variant="h6" gutterBottom >
+                                4) Snorkeling Equipment
+                            </Typography>
+                            <Typography variant="subtitle1" gutterBottom>
+                            Shop for Snorkeling equipment in Sri Lanka online with Us
+                             </Typography>  <Typography variant="h6" gutterBottom >
+                                Click the Button to Explore the Snokeling
+                            </Typography></Box>
+                        <Button style={{ backgroundColor: '#03a1fc', color: '#FFFFFF' }}  href="/PCustomerView"> Snorkeling</Button>
+                    </Box>
+                    
+                </Container>
+
             </React.Fragment>
 
 
