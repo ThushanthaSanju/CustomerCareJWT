@@ -129,7 +129,7 @@ const AddLiveBoard = (props) => {
     description: "",
     capacity: "",
     errors: {
-        fname: "",
+      fname: "",
       facilities: "",
       price: "",
       description: "",
@@ -232,15 +232,15 @@ const AddLiveBoard = (props) => {
         break;
       case "facilities":
         errors.facilities =
-          value.length < 4 ? "Author must be 4 characters long!" : "";
+          value.length < 4 ? "Must be 4 characters long!" : "";
         break;
       case "description":
         errors.description =
-          value.length < 4 ? "Publisher must be 4 characters long!" : "";
+          value.length < 4 ? "Must be 4 characters long!" : "";
         break;
       case "price":
         errors.price =
-          value.length < 3 ? "Rack Number must be 3 characters long!" : "";
+          value.length < 3 ? "Must be 3 characters long!" : "";
         break;
       default:
         break;

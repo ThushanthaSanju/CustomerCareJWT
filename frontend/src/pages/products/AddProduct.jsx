@@ -227,19 +227,19 @@ const AddProduct = (props) => {
     switch (name) {
       case "productID":
         errors.productID =
-          value.length < 2 ? "Name must be 2 characters long!" : "";
+          value.length < 2 ? "Product ID must be 2 characters long!" : "";
         break;
       case "productName":
         errors.productName =
-          value.length < 4 ? "Author must be 4 characters long!" : "";
+          value.length < 4 ? "Product Name must be 4 characters long!" : "";
         break;
       case "description":
         errors.description =
-          value.length < 4 ? "Publisher must be 4 characters long!" : "";
+          value.length < 4 ? "Description  must be 4 characters long!" : "";
         break;
       case "price":
         errors.price =
-          value.length < 3 ? "Rack Number must be 3 characters long!" : "";
+          value.length < 3 ? "Price must be 3 characters long!" : "";
         break;
       default:
         break;

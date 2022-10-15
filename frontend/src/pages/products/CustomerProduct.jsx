@@ -63,7 +63,7 @@ const PCustomerView = (props) => {
     { title: "Product ID", field: "productID" },
     { title: "Product Name", field: "productName" },
     { title: "Description", field: "description" },
-    { title: "Warrenty Period", field: "warantyPeriod", type: "numeric"  },
+    { title: "Warrenty Period", field: "warantyPeriod", type: "numeric" },
     { title: "Price", field: "price", type: "numeric" },
   ]);
 
@@ -145,59 +145,59 @@ const PCustomerView = (props) => {
         Beach Travellers
       </h1>
       <div className='row p-5'>
-        {data.map((data)=>{
-          return(
+        {data.map((data) => {
+          return (
             <Card className='m-3' sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image={data.image}
-          alt="green iguana"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {data.productName}({data.productID})
-          </Typography>
-          <Typography
-          className='text-small'
-          color="textSecondary"
-          gutterBottom
-        >
-          ${data.price}
-        </Typography>
-        <Typography
-          className='text-small'
-          color="textSecondary"
-          gutterBottom
-        >
-        {data.warantyPeriod} Months
-        </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {data.description}
-        </Typography>
-                <Stack className='mt-2 p-1' direction="row" spacing={1}>
-            {data.productName .split(',').map((data)=>{
-              return(
-      <Chip label={data} variant="outlined" />
-              )
-            })}
-    </Stack>
-<Stack direction="row" spacing={1}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={data.image}
+                  alt="green iguana"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {data.productName}({data.productID})
+                  </Typography>
+                  <Typography
+                    className='text-small'
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    ${data.price}
+                  </Typography>
+                  <Typography
+                    className='text-small'
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    {data.warantyPeriod} Months
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {data.description}
+                  </Typography>
+                  <Stack className='mt-2 p-1' direction="row" spacing={1}>
+                    {data.productName.split(',').map((data) => {
+                      return (
+                        <Chip label={data} variant="outlined" />
+                      )
+                    })}
+                  </Stack>
+                  {/* <Stack direction="row" spacing={1}>
       <Chip label="Chip Filled" />
       <Chip label="Chip Outlined" variant="outlined" />
-    </Stack>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary" onClick={()=>{navigate(`/AddCart/${data._id}`)}}>
-          ADD CART
-        </Button>
-      </CardActions>
-    </Card>
+    </Stack> */}
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button size="small" color="primary" onClick={() => { navigate(`/AddCart/${data._id}`) }}>
+                  ADD CART
+                </Button>
+              </CardActions>
+            </Card>
           )
         })}
-      
+
       </div>
       <div className="tbl d-none">
         <div>
@@ -219,24 +219,24 @@ const PCustomerView = (props) => {
         </div>
 
         <MaterialTable
-        
-        //   title={
-        //     <><Button
-        //       id="btnAdd"
-        //       variant="contained"
-        //       color="primary"
-        //       href="/addliveboard"
-        //     >
-        //       Add new Liveboards
-        //     </Button><Button
-        //       id="btnbook"
-        //       variant="contained"
-        //       color="primary"
-        //       href="/bookingsadmin"
-        //     >
-        //       Bookings
-        //       </Button></>
-        //   }
+
+          //   title={
+          //     <><Button
+          //       id="btnAdd"
+          //       variant="contained"
+          //       color="primary"
+          //       href="/addliveboard"
+          //     >
+          //       Add new Liveboards
+          //     </Button><Button
+          //       id="btnbook"
+          //       variant="contained"
+          //       color="primary"
+          //       href="/bookingsadmin"
+          //     >
+          //       Bookings
+          //       </Button></>
+          //   }
           columns={columns}
           data={data}
           editable={{
