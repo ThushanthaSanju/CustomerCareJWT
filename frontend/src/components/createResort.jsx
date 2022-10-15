@@ -25,18 +25,20 @@ const CreateResort = () => {
         // setBtnDisable(true);
 
         try {
-            ResortCtrl.ResortCreate(data.files, data).then((res) => {
-                if (res.success) {
-                    toast.success("Registration Success")
-                } else {
-                    toast.error("Registration Failed")
-                }
-                clearForm()
-                setBtnDisable(false);
-            }).catch((err) => {
-                console.log(err);
-                setBtnDisable(false);
-            })
+            if (validateForm()) {
+                ResortCtrl.ResortCreate(data.files, data).then((res) => {
+                    if (res.success) {
+                        toast.success("Registration Success")
+                    } else {
+                        toast.error("Registration Failed")
+                    }
+                    clearForm()
+                    setBtnDisable(false);
+                }).catch((err) => {
+                    console.log(err);
+                    setBtnDisable(false);
+                })
+            }
         } catch (error) {
             setBtnDisable(false);
 

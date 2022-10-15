@@ -429,7 +429,7 @@ const AddLiveBoard = (props) => {
               name="contact"
               autoComplete="contact"
               autoFocus
-              type="tel"
+              type="number"
               value={state.contact || ""}
               onChange={handleChange}
             />
