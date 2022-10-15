@@ -183,10 +183,6 @@ const PCustomerView = (props) => {
               )
             })}
     </Stack>
-<Stack direction="row" spacing={1}>
-      <Chip label="Chip Filled" />
-      <Chip label="Chip Outlined" variant="outlined" />
-    </Stack>
         </CardContent>
       </CardActionArea>
       <CardActions>
